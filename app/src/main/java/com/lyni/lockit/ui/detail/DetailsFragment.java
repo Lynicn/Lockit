@@ -1,23 +1,22 @@
 package com.lyni.lockit.ui.detail;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lyni.lockit.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
 import com.lyni.lockit.databinding.FragmentDetailsBinding;
 
 /**
- *
+ * @author Liangyong Ni
+ * description 详情界面
+ * @date 2021/6/13
  */
 public class DetailsFragment extends Fragment {
 

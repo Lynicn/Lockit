@@ -15,7 +15,11 @@ import android.view.ViewGroup;
 
 import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentSummaryBinding;
-
+/**
+ * @author Liangyong Ni
+ * description 首页
+ * @date 2021/6/13
+ */
 public class SummaryFragment extends Fragment {
 
     private SummaryViewModel mViewModel;
