@@ -1,20 +1,18 @@
 package com.lyni.lockit.ui.summary;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lyni.lockit.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.lyni.lockit.databinding.FragmentSummaryBinding;
+
 /**
  * @author Liangyong Ni
  * description 首页
@@ -24,10 +22,6 @@ public class SummaryFragment extends Fragment {
 
     private SummaryViewModel mViewModel;
     private FragmentSummaryBinding binding;
-
-    public static SummaryFragment newInstance() {
-        return new SummaryFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,7 +34,18 @@ public class SummaryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
-        binding.navigateBtn.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment));
-    }
+        mViewModel.setFragment(this);
+        SummaryAdapter adapter = new SummaryAdapter(this);
+        binding.records.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.records.setAdapter(adapter);
+        mViewModel.getRecords().observe(getViewLifecycleOwner(), records -> {
+            adapter.setRecords(records);
+            adapter.notifyDataSetChanged();
+        });
+        mViewModel.getAccountsMap().observe(getViewLifecycleOwner(), longAccountMap -> {
+            adapter.setAccountMap(longAccountMap);
+            adapter.notifyDataSetChanged();
+        });
 
+    }
 }
