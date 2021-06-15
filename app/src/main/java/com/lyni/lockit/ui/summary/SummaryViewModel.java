@@ -25,14 +25,6 @@ public class SummaryViewModel extends ViewModel {
 
     public SummaryViewModel() {
         records = Repository.getAllRecordsLive();
-        LiveData<List<Account>> accountsLive = Repository.getAllAccountsLive();
-        accountsLive.observe(fragment.getViewLifecycleOwner(), accounts -> {
-            Map<Long, Account> temp = new HashMap<>();
-            for (Account account : accounts) {
-                temp.put(account.getId(), account);
-            }
-            accountsMap.setValue(temp);
-        });
     }
 
     public LiveData<List<Record>> getRecords() {
@@ -45,5 +37,13 @@ public class SummaryViewModel extends ViewModel {
 
     public void setFragment(Fragment fragment) {
         this.fragment = fragment;
+        LiveData<List<Account>> accountsLive = Repository.getAllAccountsLive();
+        accountsLive.observe(fragment.getViewLifecycleOwner(), accounts -> {
+            Map<Long, Account> temp = new HashMap<>();
+            for (Account account : accounts) {
+                temp.put(account.getId(), account);
+            }
+            accountsMap.setValue(temp);
+        });
     }
 }

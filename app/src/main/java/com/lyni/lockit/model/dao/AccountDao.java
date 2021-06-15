@@ -60,8 +60,26 @@ public interface AccountDao {
     void updateRecords(Account... accounts);
 
     /**
+     * 根据id查找对应的账号
+     *
+     * @param ids 需要查找的id集合
+     * @return 查找结果
+     */
+    @Query("select * from account_table where id in (:ids)")
+    List<Account> findByIds(List<Long> ids);
+
+    /**
+     * 根据id查找对应的账号
+     *
+     * @param id 需要查找的id
+     * @return 查找结果
+     */
+    @Query("select * from account_table where id in (:id)")
+    Account findById(Long id);
+
+    /**
      * 删除所有无归属应用的账号
      */
-    @Query("delete from account_table where rc <= 0")
+    @Query("delete from account_table where linked_app is null")
     void deleteUnusedAccounts();
 }

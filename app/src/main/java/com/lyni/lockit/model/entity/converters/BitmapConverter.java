@@ -24,7 +24,7 @@ public class BitmapConverter {
      * @return 转化后的Bitmap
      */
     @TypeConverter
-    public synchronized Bitmap stringToBitmap(@NonNull String icon) {
+    public static synchronized Bitmap stringToBitmap(@NonNull String icon) {
         byte[] img = Base64.decode(icon.getBytes(), Base64.DEFAULT);
         if (img != null) {
             return BitmapFactory.decodeByteArray(img, 0, img.length);
@@ -40,7 +40,7 @@ public class BitmapConverter {
      * @return 转化后的base64字符串
      */
     @TypeConverter
-    public String bitmapToString(Bitmap bitmap) {
+    public static String bitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         //参数100表示不压缩
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
@@ -53,7 +53,7 @@ public class BitmapConverter {
      * @param bitmap 需要转化的Bitmap
      * @return 转换后的Drawable格式图片
      */
-    public Drawable bitmapToDrawable(Bitmap bitmap) {
+    public static Drawable bitmapToDrawable(Bitmap bitmap) {
         return new BitmapDrawable(bitmap);
     }
 
@@ -63,7 +63,7 @@ public class BitmapConverter {
      * @param drawable 需要转化的Drawable
      * @return 转化后的Bitmap
      */
-    public Bitmap drawableToBitmap(Drawable drawable) {
+    public static Bitmap drawableToBitmap(Drawable drawable) {
         return ((BitmapDrawable) drawable).getBitmap();
     }
 }

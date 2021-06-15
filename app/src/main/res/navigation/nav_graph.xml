@@ -13,10 +13,17 @@
         <action
             android:id="@+id/action_summaryFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_summaryFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.lyni.lockit.ui.detail.DetailsFragment"
         android:label="Information"
         tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.lyni.lockit.ui.add.AddFragment"
+        tools:layout="@layout/fragment_add" />
 </navigation>

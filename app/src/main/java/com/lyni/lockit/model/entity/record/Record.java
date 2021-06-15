@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -17,7 +18,9 @@ import java.util.List;
  * description 账户实体类
  * @date 2021/6/13
  */
-@Entity(tableName = "record_table")
+@Entity(tableName = "record_table", foreignKeys = @ForeignKey(entity = Account.class,
+        parentColumns = "id",
+        childColumns = "login_ways"))
 @TypeConverters({IntListConverter.class, BitmapConverter.class})
 public class Record {
     @PrimaryKey(autoGenerate = true)
@@ -29,13 +32,32 @@ public class Record {
     private String packageName;
     @ColumnInfo(name = "r_icon")
     private Bitmap icon;
+    @ColumnInfo(name = "url")
+    private String url;
+    @ColumnInfo(name = "login_ways")
+    private List<Long> loginWays;
     @ColumnInfo(name = "accounts")
     private List<Long> accounts;
     @ColumnInfo(name = "count")
     private Integer count = 0;
 
-
     public Record() {
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<Long> getLoginWays() {
+        return loginWays;
+    }
+
+    public void setLoginWays(List<Long> loginWays) {
+        this.loginWays = loginWays;
     }
 
     public String getName() {

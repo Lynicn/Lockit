@@ -16,7 +16,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:contentDescription="@string/summary_desc_app_icon"
-            android:src="@drawable/ic_app_icon_24"
+            android:src="@drawable/ic_app_icon_40"
             app:layout_constraintBottom_toBottomOf="@+id/item_rv_summary_account_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/item_rv_summary_app_name" />
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:textSize="20sp"
             android:textStyle="bold"

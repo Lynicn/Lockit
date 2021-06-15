@@ -8,4 +8,18 @@
     <string name="summary_desc_add">添加一个新记录</string>
     <string name="summary_desc_setting">设置</string>
     <string name="summary_desc_app_icon">应用图标</string>
+    <string name="details_tv_title">详细信息</string>
+    <string name="item_rv_details_desc">复制</string>
+    <string name="add_tv_title">新建</string>
+    <string name="add_tv_title2">马甲</string>
+    <string name="add_et_hint_app_name">请输入应用名称</string>
+    <string name="add_et_hint_app_url">请输入网址</string>
+    <string name="dialog_et_hint_uid">请输入账户ID</string>
+    <string name="dialog_et_hint_tele">请输入电话号码（可空）</string>
+    <string name="dialog_et_hint_username">请输入用户名</string>
+    <string name="dialog_et_hint_password">请输入密码</string>
+    <string name="add_btn_new_account">新建账号</string>
+    <string name="dialog_add_account_checkbox">设置为主账号</string>
+    <string name="dialog_et_hint_notes">在此输入备注…</string>
+    <string name="dialog_aa_hint_email">请输入邮箱（可空）</string>
 </resources>

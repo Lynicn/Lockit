@@ -9,7 +9,6 @@ import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.ui.LockitApplication;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Liangyong Ni
@@ -29,6 +28,10 @@ public class Repository {
 
     public static LiveData<List<Account>> getAllAccountsLive() {
         return DATABASE.accountDao().getAllAccountsLive();
+    }
+
+    public static LiveData<Record> getRecordById(Long id) {
+        return DATABASE.recordDao().getRecordLiveById(id);
     }
 
     public static void insert(Record... records) {
@@ -54,4 +57,18 @@ public class Repository {
     public static void update(Account... accounts) {
         DATABASE.accountDao().updateRecords(accounts);
     }
+
+    public static List<Account> findAccountsByIds(List<Long> longIds) {
+        return DATABASE.accountDao().findByIds(longIds);
+    }
+
+    public static Account findAccountById(Long longId) {
+        return DATABASE.accountDao().findById(longId);
+    }
+
+    public static Record findRecordById(Long longId) {
+        return DATABASE.recordDao().findById(longId).get(0);
+    }
+
+
 }

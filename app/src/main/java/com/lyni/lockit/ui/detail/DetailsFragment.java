@@ -9,9 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentDetailsBinding;
+
+import java.util.Objects;
 
 /**
  * @author Liangyong Ni
@@ -21,11 +24,7 @@ import com.lyni.lockit.databinding.FragmentDetailsBinding;
 public class DetailsFragment extends Fragment {
 
     FragmentDetailsBinding binding;
-    private DetailsViewModel mViewModel;
-
-    public static DetailsFragment newInstance() {
-        return new DetailsFragment();
-    }
+    private Long recordId;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -37,8 +36,34 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
-        binding.returnBtn.setOnClickListener(v -> Navigation.findNavController(requireView()).popBackStack());
-    }
+        DetailsViewModel mViewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
+        String keyString = "recordId";
 
+        if (getArguments() != null && getArguments().containsKey(keyString)) {
+            recordId = getArguments().getLong(keyString);
+        }
+
+        mViewModel.setId(recordId);
+        mViewModel.setFragment(this);
+        mViewModel.getRecord().observe(getViewLifecycleOwner(), record -> {
+            binding.appName.setText(record.getName());
+            binding.url.setText(record.getUrl());
+        });
+        LoginWaysAdapter loginWaysAdapter = new LoginWaysAdapter(requireContext(), R.layout.item_lv_details, Objects.requireNonNull(mViewModel.getLoginWays().getValue()), mViewModel.getRecord().getValue());
+        binding.loginWays.setAdapter(loginWaysAdapter);
+
+        AccountsAdapter accountsAdapter = new AccountsAdapter(mViewModel.getAccounts().getValue());
+        binding.accounts.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.accounts.setAdapter(accountsAdapter);
+        mViewModel.getLoginWays().observe(getViewLifecycleOwner(), accounts -> {
+            loginWaysAdapter.setAccounts(accounts);
+            loginWaysAdapter.notifyDataSetChanged();
+        });
+        mViewModel.getAccounts().observe(getViewLifecycleOwner(), accounts -> {
+            accountsAdapter.setAccounts(accounts);
+            accountsAdapter.notifyDataSetChanged();
+        });
+
+
+    }
 }

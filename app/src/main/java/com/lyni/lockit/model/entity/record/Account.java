@@ -2,7 +2,6 @@ package com.lyni.lockit.model.entity.record;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
@@ -10,25 +9,19 @@ import androidx.room.TypeConverters;
 
 import com.lyni.lockit.model.entity.converters.IntListConverter;
 
-import java.util.List;
-
 /**
  * @author Liangyong Ni
  * description 账号实体类
  * @date 2021/6/13
  */
-@Entity(tableName = "account_table",
-        foreignKeys = @ForeignKey(entity = Account.class,
-                parentColumns = "id",
-                childColumns = "login_way"),
-        indices = {@Index(value = "id")})
+@Entity(tableName = "account_table", indices = {@Index(value = "id")})
 @TypeConverters(IntListConverter.class)
 public class Account {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private long id;
     @ColumnInfo(name = "uid")
-    private String uid;
+    private String uid = "";
     @ColumnInfo(name = "username")
     private String username;
     @ColumnInfo(name = "password")
@@ -39,14 +32,8 @@ public class Account {
     private String tele;
     @ColumnInfo(name = "email")
     private String email;
-    @ColumnInfo(name = "icon")
-    private long icon;
-    @ColumnInfo(name = "login_way")
-    private Long loginWay;
-    @ColumnInfo(name = "linked_accounts")
-    private List<Long> linkedAccounts;
-    @ColumnInfo(name = "rc")
-    private int rc = 1;
+    @ColumnInfo(name = "linked_app")
+    private Long linkedApp;
 
     public Account() {
     }
@@ -58,14 +45,6 @@ public class Account {
         this.password = password;
     }
 
-    public int getRc() {
-        return rc;
-    }
-
-    public void setRc(int rc) {
-        this.rc = rc;
-    }
-
     public long getId() {
         return id;
     }
@@ -74,20 +53,12 @@ public class Account {
         this.id = id;
     }
 
-    public Long getLoginWay() {
-        return loginWay;
+    public Long getLinkedApp() {
+        return linkedApp;
     }
 
-    public void setLoginWay(Long loginWay) {
-        this.loginWay = loginWay;
-    }
-
-    public List<Long> getLinkedAccounts() {
-        return linkedAccounts;
-    }
-
-    public void setLinkedAccounts(List<Long> linkedAccounts) {
-        this.linkedAccounts = linkedAccounts;
+    public void setLinkedApp(Long linkedApp) {
+        this.linkedApp = linkedApp;
     }
 
     public String getUid() {
@@ -136,13 +107,5 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public long getIcon() {
-        return icon;
-    }
-
-    public void setIcon(long icon) {
-        this.icon = icon;
     }
 }

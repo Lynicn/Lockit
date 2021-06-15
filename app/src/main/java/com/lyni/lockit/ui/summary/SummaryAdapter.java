@@ -1,5 +1,6 @@
 package com.lyni.lockit.ui.summary;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -27,9 +29,9 @@ import java.util.Objects;
  * @date 2021/6/13
  */
 public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHolder> {
+    private final Fragment fragment;
     private List<Record> records;
     private Map<Long, Account> accountMap;
-    private Fragment fragment;
 
     public SummaryAdapter(Fragment fragment) {
         this.fragment = fragment;
@@ -55,17 +57,17 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
         holder.icon.setImageBitmap(records.get(position).getIcon());
         holder.appName.setText(records.get(position).getName());
         holder.accountName.setText(Objects.requireNonNull(accountMap.get(records.get(position).getAccounts().get(0))).getUsername());
-        holder.materialCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: 2021/6/13 跳转详情
-            }
+        holder.materialCardView.setOnClickListener(v -> {
+            // TODO: 2021/6/13 跳转详情
+            Bundle bundle = new Bundle();
+            bundle.putLong("recordId", records.get(position).getId());
+            Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment);
         });
     }
 
     @Override
     public int getItemCount() {
-        return records.size();
+        return records == null ? 0 : records.size();
     }
 
     static final class MyViewHolder extends RecyclerView.ViewHolder {

@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentSummaryBinding;
 
 /**
@@ -46,6 +48,8 @@ public class SummaryFragment extends Fragment {
             adapter.setAccountMap(longAccountMap);
             adapter.notifyDataSetChanged();
         });
+
+        binding.add.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addFragment));
 
     }
 }
