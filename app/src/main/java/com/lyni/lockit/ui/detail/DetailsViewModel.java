@@ -9,30 +9,23 @@ import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
 
-import java.util.List;
-
 /**
  * @author Liangyong Ni
  * description ViewModel
  * @date 2021/6/13
  */
 public class DetailsViewModel extends ViewModel {
-    private final LiveData<Record> record;
-    private final MutableLiveData<List<Account>> accounts = new MutableLiveData<>();
-    private final MutableLiveData<List<Account>> loginWays = new MutableLiveData<>();
-    private Long id;
+    private final MutableLiveData<Account> account = new MutableLiveData<>();
+    private LiveData<Record> record;
     private Fragment fragment;
 
     public DetailsViewModel() {
-        record = Repository.getRecordById(id);
-        record.observe(fragment.getViewLifecycleOwner(), record -> {
-            accounts.setValue(Repository.findAccountsByIds(record.getAccounts()));
-            loginWays.setValue(Repository.findAccountsByIds(record.getLoginWays()));
-        });
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        record = Repository.getRecordById(id);
+        record.observe(fragment.getViewLifecycleOwner(), record -> account.setValue(record.getAccount()));
     }
 
     public void setFragment(Fragment fragment) {
@@ -43,11 +36,7 @@ public class DetailsViewModel extends ViewModel {
         return record;
     }
 
-    public LiveData<List<Account>> getAccounts() {
-        return accounts;
-    }
-
-    public LiveData<List<Account>> getLoginWays() {
-        return loginWays;
+    public LiveData<Account> getAccount() {
+        return account;
     }
 }

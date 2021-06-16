@@ -36,20 +36,15 @@ public class SummaryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
-        mViewModel.setFragment(this);
         SummaryAdapter adapter = new SummaryAdapter(this);
-        binding.records.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.records.setAdapter(adapter);
+        binding.summaryRecords.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.summaryRecords.setAdapter(adapter);
         mViewModel.getRecords().observe(getViewLifecycleOwner(), records -> {
             adapter.setRecords(records);
             adapter.notifyDataSetChanged();
         });
-        mViewModel.getAccountsMap().observe(getViewLifecycleOwner(), longAccountMap -> {
-            adapter.setAccountMap(longAccountMap);
-            adapter.notifyDataSetChanged();
-        });
 
-        binding.add.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addRecordFragment));
+        binding.summaryAddRecord.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addRecordFragment));
 
     }
 }

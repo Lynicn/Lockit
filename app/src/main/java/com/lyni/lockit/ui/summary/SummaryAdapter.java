@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.lyni.lockit.R;
-import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.Record;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -31,7 +29,6 @@ import java.util.Objects;
 public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHolder> {
     private final Fragment fragment;
     private List<Record> records;
-    private Map<Long, Account> accountMap;
 
     public SummaryAdapter(Fragment fragment) {
         this.fragment = fragment;
@@ -39,10 +36,6 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
 
     public void setRecords(List<Record> records) {
         this.records = records;
-    }
-
-    public void setAccountMap(Map<Long, Account> accountMap) {
-        this.accountMap = accountMap;
     }
 
     @NonNull
@@ -56,11 +49,11 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
         holder.icon.setImageBitmap(records.get(position).getIcon());
         holder.appName.setText(records.get(position).getName());
-        holder.accountName.setText(Objects.requireNonNull(accountMap.get(records.get(position).getAccounts().get(0))).getUsername());
+        holder.accountName.setText(Objects.requireNonNull(records.get(position).getAccount()).getUsername());
         holder.materialCardView.setOnClickListener(v -> {
             // TODO: 2021/6/13 跳转详情
             Bundle bundle = new Bundle();
-            bundle.putLong("recordId", records.get(position).getId());
+            bundle.putString("recordId", records.get(position).getId());
             Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment);
         });
     }

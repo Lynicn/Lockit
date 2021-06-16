@@ -29,37 +29,30 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/appName"
                 style="@style/tv_account_show"
+                android:id="@+id/detailsAppName"
                 app:drawableStartCompat="@drawable/ic_app_icon_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_rv_details_id"
                 tools:text="Lock It" />
 
             <TextView
-                android:id="@+id/url"
                 style="@style/tv_account_show"
                 android:textStyle="normal"
+                android:id="@+id/detailsAppUrl"
                 app:drawableStartCompat="@drawable/ic_url_24"
                 tools:text="http://www.baidu.com" />
 
-            <ListView
-                android:id="@+id/loginWays"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:divider="@null" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/accounts"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temp_mcv_1" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/temp_mcv_1" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

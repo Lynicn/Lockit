@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,7 +9,7 @@
         android:id="@+id/dialog_add_account_uid"
         style="@style/et_add_account"
         android:drawableStart="@drawable/ic_id_24"
-        android:hint="@string/add_account_et_hint_uid"
+        android:hint="@string/add_record_et_hint_uid"
         android:importantForAutofill="no"
         android:inputType="text" />
 
@@ -18,7 +17,7 @@
         android:id="@+id/dialog_add_account_username"
         style="@style/et_add_account"
         android:drawableStart="@drawable/ic_user_28"
-        android:hint="@string/add_account_et_hint_username"
+        android:hint="@string/add_record_et_hint_username"
         android:importantForAutofill="no"
         android:inputType="text" />
 
@@ -26,23 +25,21 @@
         android:id="@+id/dialog_add_account_password"
         style="@style/et_add_account"
         android:drawableStart="@drawable/ic_password_24"
-        android:hint="@string/add_account_et_hint_password"
+        android:hint="@string/add_record_et_hint_password"
         android:importantForAutofill="no"
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/add_account_add_account_tele"
         style="@style/et_add_account"
         android:drawableStart="@drawable/ic_phone_24"
-        android:hint="@string/add_account_et_hint_tele"
+        android:hint="@string/add_record_et_hint_tele"
         android:importantForAutofill="no"
         android:inputType="phone" />
 
     <EditText
-        android:id="@+id/dialog_add_account_email"
         style="@style/et_add_account"
         android:drawableStart="@drawable/ic_email_24"
-        android:hint="@string/add_account_et_hint_tele"
+        android:hint="@string/add_record_et_hint_tele"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress" />
 
@@ -54,7 +51,6 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/login_qq"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -64,7 +60,6 @@
             android:src="@drawable/ic_qq_28" />
 
         <ImageButton
-            android:id="@+id/login_wechat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -74,7 +69,6 @@
             android:src="@drawable/ic_wechat_28" />
 
         <ImageButton
-            android:id="@+id/login_alipay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -84,7 +78,6 @@
             android:src="@drawable/ic_alipay_28" />
 
         <ImageButton
-            android:id="@+id/login_weibo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -94,7 +87,6 @@
             android:src="@drawable/ic_weibo_28" />
 
         <ImageButton
-            android:id="@+id/login_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -103,21 +95,6 @@
             android:contentDescription="@string/add_record_ib_desc_weibo"
             android:src="@drawable/ic_add_round_28" />
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_et_add"
-        android:padding="12dp"
-        tools:layout_editor_absoluteX="16dp">
-
-        <CheckBox
-            android:id="@+id/dialog_add_account_is_main_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_account_checkbox" />
-    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -139,7 +116,7 @@
             android:layout_margin="0dp"
             android:background="@null"
             android:gravity="top"
-            android:hint="@string/add_account_et_hint_notes"
+            android:hint="@string/add_record_et_hint_notes"
             android:importantForAutofill="no"
             android:inputType="textMultiLine" />
     </LinearLayout>

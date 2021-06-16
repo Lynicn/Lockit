@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
     app:startDestination="@id/summaryFragment">
 
     <fragment
@@ -25,14 +24,5 @@
     <fragment
         android:id="@+id/addRecordFragment"
         android:name="com.lyni.lockit.ui.add.record.AddRecordFragment"
-        tools:layout="@layout/fragment_add_record" >
-        <action
-            android:id="@+id/action_addRecordFragment_to_addAccountFragment"
-            app:destination="@id/addAccountFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addAccountFragment"
-        android:name="com.lyni.lockit.ui.add.account.AddAccountFragment"
-        android:label="fragment_add_account"
-        tools:layout="@layout/fragment_add_account" />
+        tools:layout="@layout/fragment_add_record" />
 </navigation>

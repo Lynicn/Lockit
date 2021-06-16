@@ -1,56 +1,72 @@
 package com.lyni.lockit.model.entity.record;
 
-import androidx.room.ColumnInfo;
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.lyni.lockit.model.entity.converters.IntListConverter;
+import com.lyni.lockit.model.entity.converters.LoginWayListConverter;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Liangyong Ni
  * description 账号实体类
  * @date 2021/6/13
  */
-@Entity(tableName = "account_table", indices = {@Index(value = "id")})
-@TypeConverters(IntListConverter.class)
+@Entity
+@TypeConverters(LoginWayListConverter.class)
 public class Account {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    private long id;
-    @ColumnInfo(name = "uid")
-    private String uid = "";
-    @ColumnInfo(name = "username")
+    @PrimaryKey
+    @NonNull
+    private String id;
+    private String uid;
     private String username;
-    @ColumnInfo(name = "password")
     private String password;
-    @ColumnInfo(name = "notes")
     private String notes;
-    @ColumnInfo(name = "tele")
     private String tele;
-    @ColumnInfo(name = "email")
     private String email;
-    @ColumnInfo(name = "qq")
     private String qq;
-    @ColumnInfo(name = "wechat")
     private String wechat;
-    @ColumnInfo(name = "alipay")
     private String alipay;
-    @ColumnInfo(name = "weibo")
     private String weibo;
-    @ColumnInfo(name = "linked_app")
-    private Long linkedApp;
+    private List<LoginWay> loginWays;
 
-    public Account() {
+    @NotNull
+    public String getId() {
+        return id;
     }
 
-    @Ignore
-    public Account(String uid, String username, String password) {
-        this.uid = uid;
-        this.username = username;
-        this.password = password;
+    public void setId(@NotNull String id) {
+        this.id = id;
+    }
+
+    public Account() {
+        id = UUID.randomUUID().toString();
+    }
+
+    public boolean isReady() {
+        boolean isReady = false;
+        if (username != null || uid != null) {
+            if (password != null) {
+                isReady = true;
+            }
+        }
+        if (tele != null || email != null || qq != null || wechat != null || alipay != null || weibo != null) {
+            isReady = true;
+        }
+        return isReady;
+    }
+
+    public List<LoginWay> getLoginWays() {
+        return loginWays;
+    }
+
+    public void setLoginWays(List<LoginWay> loginWays) {
+        this.loginWays = loginWays;
     }
 
     public String getQq() {
@@ -83,22 +99,6 @@ public class Account {
 
     public void setWeibo(String weibo) {
         this.weibo = weibo;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Long getLinkedApp() {
-        return linkedApp;
-    }
-
-    public void setLinkedApp(Long linkedApp) {
-        this.linkedApp = linkedApp;
     }
 
     public String getUid() {

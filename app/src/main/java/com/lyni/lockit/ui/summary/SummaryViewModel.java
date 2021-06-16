@@ -20,8 +20,6 @@ import java.util.Map;
  */
 public class SummaryViewModel extends ViewModel {
     private final LiveData<List<Record>> records;
-    private final MutableLiveData<Map<Long, Account>> accountsMap = new MutableLiveData<>();
-    private Fragment fragment;
 
     public SummaryViewModel() {
         records = Repository.getAllRecordsLive();
@@ -31,19 +29,4 @@ public class SummaryViewModel extends ViewModel {
         return records;
     }
 
-    public LiveData<Map<Long, Account>> getAccountsMap() {
-        return accountsMap;
-    }
-
-    public void setFragment(Fragment fragment) {
-        this.fragment = fragment;
-        LiveData<List<Account>> accountsLive = Repository.getAllAccountsLive();
-        accountsLive.observe(fragment.getViewLifecycleOwner(), accounts -> {
-            Map<Long, Account> temp = new HashMap<>();
-            for (Account account : accounts) {
-                temp.put(account.getId(), account);
-            }
-            accountsMap.setValue(temp);
-        });
-    }
 }

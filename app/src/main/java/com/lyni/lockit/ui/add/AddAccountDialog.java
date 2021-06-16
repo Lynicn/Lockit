@@ -6,7 +6,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.lyni.lockit.R;
@@ -20,7 +19,6 @@ import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 public class AddAccountDialog {
     private final AlertDialog dialog;
     private final EditText uid, username, notes, password;
-    private final CheckBox isMainAccount;
 
     public AddAccountDialog(Context context, OnEnsureListener onEnsureListener) {
         @SuppressLint("InflateParams") View view = LayoutInflater.from(context).inflate(R.layout.dialog_account_add, null, false);
@@ -28,7 +26,6 @@ public class AddAccountDialog {
         username = view.findViewById(R.id.dialog_add_account_username);
         password = view.findViewById(R.id.dialog_add_account_password);
         notes = view.findViewById(R.id.dialog_add_account_notes);
-        isMainAccount = view.findViewById(R.id.dialog_add_account_is_main_account);
         dialog = new AlertDialog.Builder(context)
                 .setTitle("新建账户")
                 .setView(view)
@@ -38,7 +35,7 @@ public class AddAccountDialog {
                     } else if (TextUtils.isEmpty(password.getText())) {
                         ToastUtil.show("密码不为空");
                     } else {
-                        onEnsureListener.onEnsure(uid, username, password, notes, isMainAccount);
+                        onEnsureListener.onEnsure(uid, username, password, notes);
                     }
                 })
                 .setNegativeButton("取消", (dialog, which) -> {
@@ -54,12 +51,11 @@ public class AddAccountDialog {
         /**
          * 点击确认按钮后执行
          *
-         * @param uid           id输入框
-         * @param username      用户名输入框
-         * @param password      密码输入框
-         * @param notes         备注输入框
-         * @param isMainAccount 复选框
+         * @param uid      id输入框
+         * @param username 用户名输入框
+         * @param password 密码输入框
+         * @param notes    备注输入框
          */
-        void onEnsure(EditText uid, EditText username, EditText password, EditText notes, CheckBox isMainAccount);
+        void onEnsure(EditText uid, EditText username, EditText password, EditText notes);
     }
 }

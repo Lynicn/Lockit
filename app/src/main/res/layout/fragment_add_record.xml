@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,136 +10,176 @@
     <TextView
         android:id="@+id/textView"
         style="@style/primary_title"
+        android:layout_marginTop="16dp"
         android:text="@string/add_record_tv_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/bg_add_base"
-        android:elevation="4dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        android:id="@+id/temp_layout_1"
+        style="@style/cardView_linearlayout"
+        android:layout_below="@id/textView">
 
         <EditText
             android:id="@+id/appName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            style="@style/et_add_account"
             android:background="@drawable/bg_et_add"
             android:drawableStart="@drawable/ic_android_round_28"
-            android:drawablePadding="16dp"
             android:hint="@string/add_record_et_hint_app_name"
             android:importantForAutofill="no"
-            android:inputType="text"
-            android:padding="12dp" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/appUrl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_et_add"
+            style="@style/et_add_account"
+            android:layout_marginBottom="0dp"
             android:drawableStart="@drawable/ic_url_24"
-            android:drawablePadding="16dp"
             android:hint="@string/add_record_et_hint_app_url"
             android:importantForAutofill="no"
-            android:inputType="textUri"
-            android:padding="12dp" />
+            android:inputType="textUri" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/temp_layout_2"
+        style="@style/cardView_linearlayout"
+        android:layout_below="@id/temp_layout_1">
+
+        <EditText
+            android:id="@+id/accountId"
+            style="@style/et_add_account"
+            android:drawableStart="@drawable/ic_id_24"
+            android:hint="@string/add_record_et_hint_uid"
+            android:importantForAutofill="no"
+            android:inputType="textUri" />
+
+        <EditText
+            android:id="@+id/accountUsername"
+            style="@style/et_add_account"
+            android:drawableStart="@drawable/ic_user_28"
+            android:hint="@string/add_record_et_hint_username"
+            android:importantForAutofill="no"
+            android:inputType="textUri" />
+
+        <EditText
+            android:id="@+id/accountPassword"
+            style="@style/et_add_account"
+            android:layout_marginBottom="0dp"
+            android:drawableStart="@drawable/ic_password_24"
+            android:hint="@string/add_record_et_hint_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/temp_layout_3"
+        style="@style/cardView_linearlayout"
+        android:layout_below="@id/temp_layout_2"
+        android:orientation="horizontal"
+        android:padding="6dp">
+
+        <ImageButton
+            android:id="@+id/phone"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_tele"
+            android:src="@drawable/ic_phone_28" />
 
-            <ImageButton
-                android:id="@+id/tele"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:contentDescription="@string/add_record_ib_desc_tele"
-                android:src="@drawable/ic_phone_28" />
+        <ImageButton
+            android:id="@+id/email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_email"
+            android:src="@drawable/ic_email_28" />
 
-            <ImageButton
-                android:id="@+id/email"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:contentDescription="@string/add_record_ib_desc_email"
-                android:src="@drawable/ic_email_28" />
+        <ImageButton
+            android:id="@+id/qq"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_qq"
+            android:src="@drawable/ic_qq_28" />
 
-            <ImageButton
-                android:id="@+id/qq"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:contentDescription="@string/add_record_ib_desc_qq"
-                android:src="@drawable/ic_qq_28" />
+        <ImageButton
+            android:id="@+id/wechat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_wechat"
+            android:src="@drawable/ic_wechat_28" />
 
-            <ImageButton
-                android:id="@+id/wechat"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:contentDescription="@string/add_record_ib_desc_wechat"
-                android:src="@drawable/ic_wechat_28" />
+        <ImageButton
+            android:id="@+id/alipay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_alipay"
+            android:src="@drawable/ic_alipay_28" />
 
-            <ImageButton
-                android:id="@+id/alipay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:contentDescription="@string/add_record_ib_desc_alipay"
-                android:src="@drawable/ic_alipay_28" />
+        <ImageButton
+            android:id="@+id/weibo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_weibo"
+            android:src="@drawable/ic_weibo_28" />
 
-            <ImageButton
-                android:id="@+id/weibo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:contentDescription="@string/add_record_ib_desc_weibo"
-                android:src="@drawable/ic_weibo_28" />
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/addLoginWay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_weibo"
+            android:src="@drawable/ic_add_round_28" />
 
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/addAccount"
+    <LinearLayout
+        style="@style/cardView_linearlayout"
+        android:layout_height="match_parent"
+        android:layout_below="@id/temp_layout_3"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        android:padding="0dp">
+
+        <EditText
+            android:id="@+id/accountNotes"
+            style="@style/et_add_account"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="@string/add_record_et_hint_notes"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:padding="16dp" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:backgroundTint="@color/yellow"
-        android:elevation="8dp"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="4dp"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            android:text="@string/add_record_btn_new_account"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_add_24" />
-    </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="32dp"
+        android:backgroundTint="#2196F3"
+        android:contentDescription="@string/add_record_desc_done"
+        android:src="@drawable/ic_done_24"
+        app:borderWidth="0dp" />
+</RelativeLayout>

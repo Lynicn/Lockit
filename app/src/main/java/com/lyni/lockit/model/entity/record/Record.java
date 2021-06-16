@@ -2,47 +2,53 @@ package com.lyni.lockit.model.entity.record;
 
 import android.graphics.Bitmap;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import com.lyni.lockit.model.entity.converters.AccountConverter;
 import com.lyni.lockit.model.entity.converters.BitmapConverter;
-import com.lyni.lockit.model.entity.converters.IntListConverter;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.UUID;
 
 /**
  * @author Liangyong Ni
  * description 账户实体类
  * @date 2021/6/13
  */
-@Entity(tableName = "record_table", foreignKeys = @ForeignKey(entity = Account.class,
-        parentColumns = "id",
-        childColumns = "login_ways"))
-@TypeConverters({IntListConverter.class, BitmapConverter.class})
+@Entity(tableName = "record_table")
+@TypeConverters({AccountConverter.class, BitmapConverter.class})
 public class Record {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "r_id")
-    private long id;
-    @ColumnInfo(name = "r_name")
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private String id;
+    @ColumnInfo(name = "name")
     private String name;
-    @ColumnInfo(name = "r_package_name")
+    @ColumnInfo(name = "package_name")
     private String packageName;
-    @ColumnInfo(name = "r_icon")
+    @ColumnInfo(name = "icon")
     private Bitmap icon;
     @ColumnInfo(name = "url")
     private String url;
-    @ColumnInfo(name = "login_ways")
-    private List<Long> loginWays;
-    @ColumnInfo(name = "accounts")
-    private List<Long> accounts;
-    @ColumnInfo(name = "count")
-    private Integer count = 0;
+    @ColumnInfo(name = "account")
+    private Account account;
 
     public Record() {
+        id = UUID.randomUUID().toString();
     }
+
+    public boolean isReady() {
+        if (name != null || packageName != null || url != null) {
+            return account.isReady();
+        }
+        return false;
+    }
+
 
     public String getUrl() {
         return url;
@@ -50,14 +56,6 @@ public class Record {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public List<Long> getLoginWays() {
-        return loginWays;
-    }
-
-    public void setLoginWays(List<Long> loginWays) {
-        this.loginWays = loginWays;
     }
 
     public String getName() {
@@ -76,14 +74,6 @@ public class Record {
         this.packageName = packageName;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public Bitmap getIcon() {
         return icon;
     }
@@ -92,23 +82,20 @@ public class Record {
         this.icon = icon;
     }
 
-    public List<Long> getAccounts() {
-        return accounts;
+    @NotNull
+    public String getId() {
+        return id;
     }
 
-    public void setAccounts(List<Long> accounts) {
-        this.accounts = accounts;
+    public void setId(@NotNull String id) {
+        this.id = id;
     }
 
-    public void add() {
-        count++;
+    public Account getAccount() {
+        return account;
     }
 
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

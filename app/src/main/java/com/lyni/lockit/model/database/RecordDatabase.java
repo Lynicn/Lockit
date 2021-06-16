@@ -3,7 +3,6 @@ package com.lyni.lockit.model.database;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-import com.lyni.lockit.model.dao.AccountDao;
 import com.lyni.lockit.model.dao.RecordDao;
 import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.Record;
@@ -21,11 +20,4 @@ public abstract class RecordDatabase extends RoomDatabase {
      * @return 数据库的Dao对象
      */
     public abstract RecordDao recordDao();
-
-    /**
-     * 返回操作数据库的Dao对象
-     *
-     * @return 数据库的Dao对象
-     */
-    public abstract AccountDao accountDao();
 }

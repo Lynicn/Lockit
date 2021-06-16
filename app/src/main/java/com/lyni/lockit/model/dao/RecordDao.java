@@ -32,8 +32,8 @@ public interface RecordDao {
      * @param id 查询记录的id
      * @return 返回LiveData形式的结果
      */
-    @Query("select * from record_table where r_id = (:id)")
-    LiveData<Record> getRecordLiveById(Long id);
+    @Query("select * from record_table where id = (:id)")
+    LiveData<Record> getRecordLiveById(String id);
 
     /**
      * 向数据库插入一条或多条数据
@@ -65,6 +65,6 @@ public interface RecordDao {
      * @param ids 记录id
      * @return 记录列表
      */
-    @Query("select * from record_table where r_id in (:ids)")
-    List<Record> findById(Long... ids);
+    @Query("select * from record_table where id in (:ids)")
+    List<Record> findById(String... ids);
 }
