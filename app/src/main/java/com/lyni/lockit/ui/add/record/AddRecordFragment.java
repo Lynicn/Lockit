@@ -1,16 +1,16 @@
-package com.lyni.lockit.ui.add;
+package com.lyni.lockit.ui.add.record;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
-import com.lyni.lockit.databinding.FragmentAddBinding;
+import com.lyni.lockit.R;
+import com.lyni.lockit.databinding.FragmentAddRecordBinding;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -19,19 +19,13 @@ import org.jetbrains.annotations.NotNull;
  * description 添加账户界面
  * @date 2021/6/15
  */
-public class AddFragment extends Fragment {
-
-//    private boolean isAdd = true;
-
-//    private Record record;
-
-    FragmentAddBinding binding;
-    private AddAccountDialog addAccountDialog;
+public class AddRecordFragment extends Fragment {
+    FragmentAddRecordBinding binding;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentAddBinding.inflate(inflater, container, false);
+        binding = FragmentAddRecordBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -39,11 +33,6 @@ public class AddFragment extends Fragment {
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        binding.addAccount.setOnClickListener(v -> {
-            addAccountDialog = new AddAccountDialog(requireContext(), (uid, username, password, email, tele, notes, isMainAccount) -> {
-
-            });
-            addAccountDialog.getDialog().show();
-        });
+        binding.addAccount.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_addRecordFragment_to_addAccountFragment));
     }
 }

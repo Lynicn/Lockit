@@ -32,6 +32,14 @@ public class Account {
     private String tele;
     @ColumnInfo(name = "email")
     private String email;
+    @ColumnInfo(name = "qq")
+    private String qq;
+    @ColumnInfo(name = "wechat")
+    private String wechat;
+    @ColumnInfo(name = "alipay")
+    private String alipay;
+    @ColumnInfo(name = "weibo")
+    private String weibo;
     @ColumnInfo(name = "linked_app")
     private Long linkedApp;
 
@@ -43,6 +51,38 @@ public class Account {
         this.uid = uid;
         this.username = username;
         this.password = password;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
+
+    public String getAlipay() {
+        return alipay;
+    }
+
+    public void setAlipay(String alipay) {
+        this.alipay = alipay;
+    }
+
+    public String getWeibo() {
+        return weibo;
+    }
+
+    public void setWeibo(String weibo) {
+        this.weibo = weibo;
     }
 
     public long getId() {

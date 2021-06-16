@@ -49,7 +49,7 @@ public class SummaryFragment extends Fragment {
             adapter.notifyDataSetChanged();
         });
 
-        binding.add.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addFragment));
+        binding.add.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addRecordFragment));
 
     }
 }

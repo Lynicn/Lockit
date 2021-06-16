@@ -1,112 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout8"
+    <EditText
+        android:id="@+id/dialog_add_account_uid"
+        style="@style/et_add_account"
+        android:drawableStart="@drawable/ic_id_24"
+        android:hint="@string/add_account_et_hint_uid"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/dialog_add_account_username"
+        style="@style/et_add_account"
+        android:drawableStart="@drawable/ic_user_28"
+        android:hint="@string/add_account_et_hint_username"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/dialog_add_account_password"
+        style="@style/et_add_account"
+        android:drawableStart="@drawable/ic_password_24"
+        android:hint="@string/add_account_et_hint_password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/add_account_add_account_tele"
+        style="@style/et_add_account"
+        android:drawableStart="@drawable/ic_phone_24"
+        android:hint="@string/add_account_et_hint_tele"
+        android:importantForAutofill="no"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/dialog_add_account_email"
+        style="@style/et_add_account"
+        android:drawableStart="@drawable/ic_email_24"
+        android:hint="@string/add_account_et_hint_tele"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_et_add"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/login_qq"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_qq"
+            android:src="@drawable/ic_qq_28" />
+
+        <ImageButton
+            android:id="@+id/login_wechat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_wechat"
+            android:src="@drawable/ic_wechat_28" />
+
+        <ImageButton
+            android:id="@+id/login_alipay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_alipay"
+            android:src="@drawable/ic_alipay_28" />
+
+        <ImageButton
+            android:id="@+id/login_weibo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_weibo"
+            android:src="@drawable/ic_weibo_28" />
+
+        <ImageButton
+            android:id="@+id/login_add"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/add_record_ib_desc_weibo"
+            android:src="@drawable/ic_add_round_28" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_et_add"
+        android:padding="12dp"
         tools:layout_editor_absoluteX="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dialog_add_account_tele"
-            style="@style/et_add_account"
-            android:inputType="phone"
+        <CheckBox
+            android:id="@+id/dialog_add_account_is_main_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_phone_24"
-            android:hint="@string/dialog_et_hint_tele" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="@string/add_account_checkbox" />
+    </FrameLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout7"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
-        tools:layout_editor_absoluteX="16dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_et_add"
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dialog_add_account_email"
-            style="@style/et_add_account"
-            android:inputType="textEmailAddress"
-            android:drawableStart="@drawable/ic_email_24"
-            android:hint="@string/dialog_aa_hint_email" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:contentDescription="@string/add_record_account_desc_note"
+            android:src="@drawable/ic_notes_24" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dialog_add_account_uid"
-            style="@style/et_add_account"
-            android:drawableStart="@drawable/ic_id_24"
-            android:hint="@string/dialog_et_hint_uid" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout4">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dialog_add_account_username"
-            style="@style/et_add_account"
-            android:drawableStart="@drawable/ic_user_28"
-            android:hint="@string/dialog_et_hint_username" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout3">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/dialog_add_account_password"
-            style="@style/et_add_account"
-            android:drawableStart="@drawable/ic_password_24"
-            android:hint="@string/dialog_et_hint_password"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/dialog_add_account_notes"
             style="@style/et_add_account"
-            android:inputType="textMultiLine"
-            android:drawableStart="@drawable/ic_note_24"
-            android:hint="@string/dialog_et_hint_notes" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="@string/add_account_et_hint_notes"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine" />
+    </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/dialog_add_account_is_main_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="@string/dialog_add_account_checkbox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
