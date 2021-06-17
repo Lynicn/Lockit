@@ -1,11 +1,10 @@
 package com.lyni.lockit.model.entity.converters;
 
-import androidx.room.TypeConverter;
-
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +14,20 @@ import java.util.List;
  * @date 2021/6/16
  */
 public class BaseListConverter<T> {
-    @TypeConverter
-    public List<T> jsonToList(String jsonString) {
+    public List<T> jsonToList(String jsonString, Class<T> cls) {
+        List<T> list = new ArrayList<>();
         try {
-            Type type = new TypeToken<ArrayList<T>>() {
-            }.getType();
-            return new Gson().fromJson(jsonString, type);
+            Gson gson = new Gson();
+            JsonArray array = JsonParser.parseString(jsonString).getAsJsonArray();
+            for (JsonElement jsonElement : array) {
+                list.add(gson.fromJson(jsonElement, cls));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return list;
     }
 
-    @TypeConverter
     public String listToJson(List<T> list) {
         return new Gson().toJson(list);
     }

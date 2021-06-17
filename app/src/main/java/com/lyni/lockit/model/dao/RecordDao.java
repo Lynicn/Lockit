@@ -18,6 +18,8 @@ import java.util.List;
  */
 @Dao
 public interface RecordDao {
+
+
     /**
      * 查询数据库中的所有数据
      *
@@ -34,6 +36,23 @@ public interface RecordDao {
      */
     @Query("select * from record_table where id = (:id)")
     LiveData<Record> getRecordLiveById(String id);
+
+    /**
+     * 根据id删除记录
+     *
+     * @param ids 需要删除的记录id
+     */
+    @Query("delete from record_table where id in (:ids)")
+    void deleteRecordsByIds(String... ids);
+
+    /**
+     * 根据id查询记录
+     *
+     * @param ids 需要查询的记录id
+     * @return 查询结果集合
+     */
+    @Query("select * from record_table where id in (:ids)")
+    List<Record> queryRecordByIds(String... ids);
 
     /**
      * 向数据库插入一条或多条数据

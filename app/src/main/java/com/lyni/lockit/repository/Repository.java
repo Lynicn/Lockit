@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import com.lyni.lockit.model.database.RecordDatabase;
-import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.ui.LockitApplication;
 
@@ -27,8 +26,14 @@ public class Repository {
     }
 
 
-    public static LiveData<Record> getRecordById(String id) {
+    public static LiveData<Record> findRecordLiveById(String id) {
         return DATABASE.recordDao().getRecordLiveById(id);
+    }
+
+    public static boolean deleteRecordsByIds(String... ids) {
+        DATABASE.recordDao().deleteRecordsByIds(ids);
+        List<Record> records = DATABASE.recordDao().queryRecordByIds(ids);
+        return records == null || records.isEmpty();
     }
 
     public static void insert(Record... records) {

@@ -2,35 +2,43 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_rv_summary_mcv"
+    android:id="@+id/item_rv_summary_item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/item_rv_summary_app_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/summary_desc_app_icon"
-            android:src="@drawable/ic_app_icon_40"
-            app:layout_constraintBottom_toBottomOf="@+id/item_rv_summary_account_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/item_rv_summary_app_name" />
+            android:src="@drawable/ic_android_round_32"
+            app:layout_constraintBottom_toBottomOf="@+id/item_rv_summary_app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/item_rv_summary_app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/item_rv_summary_app_icon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Lock it" />
 
@@ -38,15 +46,80 @@
             android:id="@+id/item_rv_summary_account_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/item_rv_summary_app_name"
             app:layout_constraintTop_toBottomOf="@+id/item_rv_summary_app_name"
-            tools:text="lyni" />
+            tools:text="188888888888" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/item_rv_summary_account_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/item_rv_summary_account_name">
+
+            <ImageView
+                android:id="@+id/item_rv_summary_tele"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/add_record_ib_desc_tele"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_phone_28" />
+
+            <ImageView
+                android:id="@+id/item_rv_summary_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/add_record_ib_desc_email"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_email_28" />
 
 
+            <ImageView
+                android:id="@+id/item_rv_summary_wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/add_record_ib_desc_wechat"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_wechat_28" />
+
+
+            <ImageView
+                android:id="@+id/item_rv_summary_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/add_record_ib_desc_qq"
+                android:src="@drawable/ic_qq_28"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/item_rv_summary_weibo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/add_record_ib_desc_weibo"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_weibo_28" />
+
+            <ImageView
+                android:id="@+id/item_rv_summary_alipay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:contentDescription="@string/add_record_ib_desc_alipay"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_alipay_28" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </com.google.android.material.card.MaterialCardView>

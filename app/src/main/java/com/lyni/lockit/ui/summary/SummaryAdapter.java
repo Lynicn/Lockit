@@ -1,6 +1,7 @@
 package com.lyni.lockit.ui.summary;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
 import com.lyni.lockit.R;
+import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.Record;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Liangyong Ni
@@ -27,6 +27,8 @@ import java.util.Objects;
  * @date 2021/6/13
  */
 public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHolder> {
+    private static final String TAG = "SummaryAdapter";
+
     private final Fragment fragment;
     private List<Record> records;
 
@@ -47,14 +49,32 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
-        holder.icon.setImageBitmap(records.get(position).getIcon());
-        holder.appName.setText(records.get(position).getName());
-        holder.accountName.setText(Objects.requireNonNull(records.get(position).getAccount()).getUsername());
-        holder.materialCardView.setOnClickListener(v -> {
-            // TODO: 2021/6/13 跳转详情
+        Record record = records.get(position);
+        holder.appName.setText(record.getName());
+        Account account = record.getAccount();
+        holder.accountName.setText(account.getUid() == null ? account.getUsername() : account.getUid());
+        if (account.getTele() != null) {
+            holder.tele.setVisibility(View.VISIBLE);
+        }
+        if (account.getEmail() != null) {
+            holder.email.setVisibility(View.VISIBLE);
+        }
+        if (account.getQq() != null) {
+            holder.qq.setVisibility(View.VISIBLE);
+        }
+        if (account.getWechat() != null) {
+            holder.wechat.setVisibility(View.VISIBLE);
+        }
+        if (account.getWeibo() != null) {
+            holder.weibo.setVisibility(View.VISIBLE);
+        }
+        if (account.getAlipay() != null) {
+            holder.alipay.setVisibility(View.VISIBLE);
+        }
+        holder.item.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString("recordId", records.get(position).getId());
-            Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment);
+            bundle.putParcelable("record", record);
+            Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment, bundle);
         });
     }
 
@@ -65,17 +85,25 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
 
     static final class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView icon;
+//        private final ImageView icon;
+
         private final TextView appName;
         private final TextView accountName;
-        private final MaterialCardView materialCardView;
+        private final View item;
+        private final ImageView tele, email, qq, wechat, weibo, alipay;
 
         public MyViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            icon = itemView.findViewById(R.id.item_rv_summary_app_icon);
+
             appName = itemView.findViewById(R.id.item_rv_summary_app_name);
             accountName = itemView.findViewById(R.id.item_rv_summary_account_name);
-            materialCardView = itemView.findViewById(R.id.item_rv_summary_mcv);
+            item = itemView.findViewById(R.id.item_rv_summary_item);
+            tele = itemView.findViewById(R.id.item_rv_summary_tele);
+            email = itemView.findViewById(R.id.item_rv_summary_email);
+            qq = itemView.findViewById(R.id.item_rv_summary_qq);
+            wechat = itemView.findViewById(R.id.item_rv_summary_wechat);
+            weibo = itemView.findViewById(R.id.item_rv_summary_weibo);
+            alipay = itemView.findViewById(R.id.item_rv_summary_alipay);
         }
     }
 }

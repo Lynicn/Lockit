@@ -18,23 +18,23 @@
 
         <TextView
             android:id="@+id/item_rv_details_id"
-            style="@style/tv_account_show"
-            app:drawableStartCompat="@drawable/ic_id_24"
+            style="@style/tv_app_info_show"
+            app:drawableStartCompat="@drawable/ic_id_26"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_rv_details_username"
             tools:text="18667029387" />
 
         <TextView
             android:id="@+id/item_rv_details_username"
-            style="@style/tv_account_show"
-            app:drawableStartCompat="@drawable/ic_user_28"
+            style="@style/tv_app_info_show"
+            app:drawableStartCompat="@drawable/ic_user_26"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="18667029387" />
 
         <TextView
             android:id="@+id/item_rv_details_password"
-            style="@style/tv_account_show"
+            style="@style/tv_app_info_show"
             android:layout_marginBottom="16dp"
             app:drawableStartCompat="@drawable/ic_password_24"
             app:layout_constraintBottom_toBottomOf="parent"

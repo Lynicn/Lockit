@@ -25,7 +25,7 @@
             android:id="@+id/appName"
             style="@style/et_add_account"
             android:background="@drawable/bg_et_add"
-            android:drawableStart="@drawable/ic_android_round_28"
+            android:drawableStart="@drawable/ic_android_round_32"
             android:hint="@string/add_record_et_hint_app_name"
             android:importantForAutofill="no"
             android:inputType="text" />
@@ -34,7 +34,7 @@
             android:id="@+id/appUrl"
             style="@style/et_add_account"
             android:layout_marginBottom="0dp"
-            android:drawableStart="@drawable/ic_url_24"
+            android:drawableStart="@drawable/ic_url_28"
             android:hint="@string/add_record_et_hint_app_url"
             android:importantForAutofill="no"
             android:inputType="textUri" />
@@ -46,9 +46,9 @@
         android:layout_below="@id/temp_layout_1">
 
         <EditText
-            android:id="@+id/accountId"
+            android:id="@+id/accountUid"
             style="@style/et_add_account"
-            android:drawableStart="@drawable/ic_id_24"
+            android:drawableStart="@drawable/ic_id_26"
             android:hint="@string/add_record_et_hint_uid"
             android:importantForAutofill="no"
             android:inputType="textUri" />
@@ -56,7 +56,7 @@
         <EditText
             android:id="@+id/accountUsername"
             style="@style/et_add_account"
-            android:drawableStart="@drawable/ic_user_28"
+            android:drawableStart="@drawable/ic_user_26"
             android:hint="@string/add_record_et_hint_username"
             android:importantForAutofill="no"
             android:inputType="textUri" />
@@ -80,71 +80,44 @@
 
         <ImageButton
             android:id="@+id/phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@null"
+            style="@style/ib_login_way"
             android:contentDescription="@string/add_record_ib_desc_tele"
             android:src="@drawable/ic_phone_28" />
 
         <ImageButton
             android:id="@+id/email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@null"
+            style="@style/ib_login_way"
             android:contentDescription="@string/add_record_ib_desc_email"
             android:src="@drawable/ic_email_28" />
 
         <ImageButton
             android:id="@+id/qq"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@null"
+            style="@style/ib_login_way"
             android:contentDescription="@string/add_record_ib_desc_qq"
             android:src="@drawable/ic_qq_28" />
 
         <ImageButton
             android:id="@+id/wechat"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@null"
+            style="@style/ib_login_way"
             android:contentDescription="@string/add_record_ib_desc_wechat"
             android:src="@drawable/ic_wechat_28" />
 
         <ImageButton
             android:id="@+id/alipay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@null"
+            style="@style/ib_login_way"
             android:contentDescription="@string/add_record_ib_desc_alipay"
             android:src="@drawable/ic_alipay_28" />
 
         <ImageButton
             android:id="@+id/weibo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
+            style="@style/ib_login_way"
             android:background="@null"
             android:contentDescription="@string/add_record_ib_desc_weibo"
             android:src="@drawable/ic_weibo_28" />
 
         <ImageButton
             android:id="@+id/addLoginWay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:background="@null"
+            style="@style/ib_login_way"
             android:contentDescription="@string/add_record_ib_desc_weibo"
             android:src="@drawable/ic_add_round_28" />
 
@@ -155,7 +128,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/temp_layout_3"
         android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="0dp">
 
         <EditText
@@ -164,8 +137,8 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:background="@null"
-            android:gravity="top"
             android:hint="@string/add_record_et_hint_notes"
+            android:gravity="top"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:padding="16dp" />

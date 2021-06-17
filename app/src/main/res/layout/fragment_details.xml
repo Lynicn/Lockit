@@ -1,58 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.detail.DetailsFragment">
 
-    <TextView
-        android:id="@+id/detailsTitle"
-        style="@style/primary_title"
-        android:text="@string/details_tv_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/temp_mcv_1"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsTitle">
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/detailsTitle"
+            style="@style/primary_title"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="0dp"
+            android:text="@string/details_tv_title" />
+
+        <ImageButton
+            android:id="@+id/detailsDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:background="@null"
+            android:contentDescription="@string/delete"
+            android:padding="4dp"
+            android:src="@drawable/ic_trash_can_24" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        style="@style/cardView_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/detailsAppName"
+            style="@style/tv_app_info_show"
+            android:layout_width="match_parent"
+            app:drawableStartCompat="@drawable/ic_android_round_28"
+            tools:text="Lock It" />
+
+        <TextView
+            android:id="@+id/detailsAppUrl"
+            style="@style/tv_app_info_show"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="0dp"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            app:drawableStartCompat="@drawable/ic_url_28"
+            tools:text="http://www.baidu.com" />
+    </LinearLayout>
+
+    <RelativeLayout
+        style="@style/cardView_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/detailsAccountUid"
+            style="@style/tv_account_show"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/uidCopy"
+            app:drawableStartCompat="@drawable/ic_id_26"
+            tools:text="Account Uid" />
+
+        <ImageView
+            android:id="@+id/uidCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/copy"
+            android:padding="8dp"
+            android:src="@drawable/ic_copy_24" />
+
+        <TextView
+            android:id="@+id/detailsAccountUsername"
+            style="@style/tv_account_show"
+            android:layout_below="@id/detailsAccountUid"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/usernameCopy"
+            app:drawableStartCompat="@drawable/ic_user_26"
+            tools:text="Account Username" />
+
+        <ImageView
+            android:id="@+id/usernameCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/uidCopy"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/copy"
+            android:padding="8dp"
+            android:src="@drawable/ic_copy_24" />
+
+        <TextView
+            android:id="@+id/detailsAccountPassword"
+            style="@style/tv_account_show"
+            android:layout_below="@id/detailsAccountUsername"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="0dp"
+            android:layout_toStartOf="@id/passwordCopy"
+            app:drawableStartCompat="@drawable/ic_password_24"
+            tools:text="Account Password" />
+
+        <ImageView
+            android:id="@+id/passwordCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameCopy"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/copy"
+            android:padding="8dp"
+            android:src="@drawable/ic_copy_24" />
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/cardView_linearlayout"
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                style="@style/tv_account_show"
-                android:id="@+id/detailsAppName"
-                app:drawableStartCompat="@drawable/ic_app_icon_24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_rv_details_id"
-                tools:text="Lock It" />
+            <ImageButton
+                android:id="@+id/teleBinding"
+                style="@style/ib_login_way"
+                android:contentDescription="@string/add_record_ib_desc_tele"
+                android:src="@drawable/ic_phone_28" />
 
-            <TextView
-                style="@style/tv_account_show"
-                android:textStyle="normal"
-                android:id="@+id/detailsAppUrl"
-                app:drawableStartCompat="@drawable/ic_url_24"
-                tools:text="http://www.baidu.com" />
+            <ImageButton
+                android:id="@+id/emailBinding"
+                style="@style/ib_login_way"
+                android:contentDescription="@string/add_record_ib_desc_email"
+                android:src="@drawable/ic_email_28" />
 
+            <ImageButton
+                android:id="@+id/qqBinding"
+                style="@style/ib_login_way"
+                android:contentDescription="@string/add_record_ib_desc_qq"
+                android:src="@drawable/ic_qq_28" />
+
+            <ImageButton
+                android:id="@+id/wechatBinding"
+                style="@style/ib_login_way"
+                android:contentDescription="@string/add_record_ib_desc_wechat"
+                android:src="@drawable/ic_wechat_28" />
+
+            <ImageButton
+                android:id="@+id/alipayBinding"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:contentDescription="@string/add_record_ib_desc_alipay"
+                android:src="@drawable/ic_alipay_28" />
+
+            <ImageButton
+                android:id="@+id/weiboBinding"
+                style="@style/ib_login_way"
+                android:contentDescription="@string/add_record_ib_desc_weibo"
+                android:src="@drawable/ic_weibo_28" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/temp_mcv_1" />-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:background="@drawable/bg_et_add">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/loginWayInfoIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/copy"
+                android:padding="8dp"
+                android:src="@drawable/ic_phone_28" />
+
+            <TextView
+                android:id="@+id/loginWayInfoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:layout_toStartOf="@id/loginWayInfoCopy"
+                android:layout_toEndOf="@id/loginWayInfoIcon"
+                android:padding="8dp"
+                android:textSize="18sp"
+                tools:text="1234567890" />
+
+            <ImageView
+                android:id="@+id/loginWayInfoCopy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/copy"
+                android:padding="8dp"
+                android:src="@drawable/ic_copy_24" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/cardView_linearlayout"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:padding="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="12dp"
+            android:text="@string/add_record_account_desc_note"
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/ic_notes_24" />
+
+        <TextView
+            android:id="@+id/detailsAccountNotes"
+            style="@style/et_add_account"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_et_add"
+            android:padding="12dp"
+            android:textSize="18sp"
+            tools:text="备注备注备注" />
+    </LinearLayout>
+</LinearLayout>

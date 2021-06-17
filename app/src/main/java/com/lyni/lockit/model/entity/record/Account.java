@@ -1,15 +1,15 @@
 package com.lyni.lockit.model.entity.record;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.lyni.lockit.model.entity.converters.LoginWayListConverter;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -18,8 +18,18 @@ import java.util.UUID;
  * @date 2021/6/13
  */
 @Entity
-@TypeConverters(LoginWayListConverter.class)
-public class Account {
+public class Account implements Parcelable {
+    public static final Creator<Account> CREATOR = new Creator<Account>() {
+        @Override
+        public Account createFromParcel(Parcel in) {
+            return new Account(in);
+        }
+
+        @Override
+        public Account[] newArray(int size) {
+            return new Account[size];
+        }
+    };
     @PrimaryKey
     @NonNull
     private String id;
@@ -32,8 +42,47 @@ public class Account {
     private String qq;
     private String wechat;
     private String alipay;
+//    private List<LoginWay> loginWays;
+
     private String weibo;
-    private List<LoginWay> loginWays;
+
+    public Account() {
+        id = UUID.randomUUID().toString();
+    }
+
+    protected Account(Parcel in) {
+        id = in.readString();
+        uid = in.readString();
+        username = in.readString();
+        password = in.readString();
+        notes = in.readString();
+        tele = in.readString();
+        email = in.readString();
+        qq = in.readString();
+        wechat = in.readString();
+        alipay = in.readString();
+        weibo = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(uid);
+        dest.writeString(username);
+        dest.writeString(password);
+        dest.writeString(notes);
+        dest.writeString(tele);
+        dest.writeString(email);
+        dest.writeString(qq);
+        dest.writeString(wechat);
+        dest.writeString(alipay);
+        dest.writeString(weibo);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     @NotNull
     public String getId() {
@@ -42,10 +91,6 @@ public class Account {
 
     public void setId(@NotNull String id) {
         this.id = id;
-    }
-
-    public Account() {
-        id = UUID.randomUUID().toString();
     }
 
     public boolean isReady() {
@@ -61,20 +106,15 @@ public class Account {
         return isReady;
     }
 
-    public List<LoginWay> getLoginWays() {
-        return loginWays;
-    }
-
-    public void setLoginWays(List<LoginWay> loginWays) {
-        this.loginWays = loginWays;
-    }
-
     public String getQq() {
         return qq;
     }
 
     public void setQq(String qq) {
         this.qq = qq;
+        if (uid == null) {
+            uid = qq;
+        }
     }
 
     public String getWechat() {
@@ -83,6 +123,9 @@ public class Account {
 
     public void setWechat(String wechat) {
         this.wechat = wechat;
+        if (uid == null) {
+            uid = wechat;
+        }
     }
 
     public String getAlipay() {
@@ -91,6 +134,9 @@ public class Account {
 
     public void setAlipay(String alipay) {
         this.alipay = alipay;
+        if (uid == null) {
+            uid = alipay;
+        }
     }
 
     public String getWeibo() {
@@ -99,6 +145,9 @@ public class Account {
 
     public void setWeibo(String weibo) {
         this.weibo = weibo;
+        if (uid == null) {
+            uid = weibo;
+        }
     }
 
     public String getUid() {
@@ -139,6 +188,9 @@ public class Account {
 
     public void setTele(String tele) {
         this.tele = tele;
+        if (uid == null) {
+            uid = tele;
+        }
     }
 
     public String getEmail() {
@@ -147,5 +199,97 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
+        if (uid == null) {
+            uid = email;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Account account = (Account) o;
+        return id.equals(account.id) &&
+                Objects.equals(uid, account.uid) &&
+                Objects.equals(username, account.username) &&
+                Objects.equals(password, account.password) &&
+                Objects.equals(notes, account.notes) &&
+                Objects.equals(tele, account.tele) &&
+                Objects.equals(email, account.email) &&
+                Objects.equals(qq, account.qq) &&
+                Objects.equals(wechat, account.wechat) &&
+                Objects.equals(alipay, account.alipay) &&
+                Objects.equals(weibo, account.weibo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, uid, username, password, notes, tele, email, qq, wechat, alipay, weibo);
+    }
+
+    public void setLoginWayText(int loginWay, String text) {
+        switch (loginWay) {
+            case 0:
+                this.tele = text;
+                break;
+            case 1:
+                this.email = text;
+                break;
+            case 2:
+                this.qq = text;
+                break;
+            case 3:
+                this.wechat = text;
+                break;
+            case 4:
+                this.weibo = text;
+                break;
+            case 5:
+                this.alipay = text;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public int getMinLoginWay() {
+        if (tele != null) {
+            return 0;
+        }
+        if (email != null) {
+            return 1;
+        }
+        if (qq != null) {
+            return 2;
+        }
+        if (wechat != null) {
+            return 3;
+        }
+        if (weibo != null) {
+            return 4;
+        }
+        if (alipay != null) {
+            return 5;
+        }
+        return 0;
+    }
+
+    public Account getCopy() {
+        Account account = new Account();
+        account.setId(id);
+        account.setUid(uid);
+        account.setUsername(username);
+        account.setPassword(password);
+        account.setTele(tele);
+        account.setEmail(email);
+        account.setQq(qq);
+        account.setWechat(wechat);
+        account.setWeibo(weibo);
+        account.setAlipay(alipay);
+        return account;
     }
 }

@@ -18,6 +18,11 @@ import com.lyni.lockit.databinding.ActivityMainBinding;
  * @date 2021/6/13
  */
 public class MainActivity extends AppCompatActivity {
+    private OnPressBackListener onPressBackListener;
+
+    public void setOnPressBackListener(OnPressBackListener onPressBackListener) {
+        this.onPressBackListener = onPressBackListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +63,23 @@ public class MainActivity extends AppCompatActivity {
                     && event.getY() > top && event.getY() < bottom);
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (onPressBackListener != null) {
+            onPressBackListener.onPressBack();
+            // 确保每次设置的返回事件监听器只执行一次
+            onPressBackListener = null;
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public interface OnPressBackListener {
+        /**
+         * 按下返回键时调用
+         */
+        void onPressBack();
     }
 }

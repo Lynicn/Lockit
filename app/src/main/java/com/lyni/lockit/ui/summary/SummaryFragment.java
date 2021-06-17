@@ -45,6 +45,5 @@ public class SummaryFragment extends Fragment {
         });
 
         binding.summaryAddRecord.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addRecordFragment));
-
     }
 }

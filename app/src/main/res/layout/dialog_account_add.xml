@@ -8,7 +8,7 @@
     <EditText
         android:id="@+id/dialog_add_account_uid"
         style="@style/et_add_account"
-        android:drawableStart="@drawable/ic_id_24"
+        android:drawableStart="@drawable/ic_id_26"
         android:hint="@string/add_record_et_hint_uid"
         android:importantForAutofill="no"
         android:inputType="text" />
@@ -16,7 +16,7 @@
     <EditText
         android:id="@+id/dialog_add_account_username"
         style="@style/et_add_account"
-        android:drawableStart="@drawable/ic_user_28"
+        android:drawableStart="@drawable/ic_user_26"
         android:hint="@string/add_record_et_hint_username"
         android:importantForAutofill="no"
         android:inputType="text" />

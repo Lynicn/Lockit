@@ -1,4 +1,4 @@
-package com.lyni.lockit.ui.add;
+package com.lyni.lockit.ui.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
