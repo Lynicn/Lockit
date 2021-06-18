@@ -28,7 +28,7 @@ public class ClipboardUtil {
         ClipData clipData = ClipData.newPlainText(null, content);
         // 把数据集设置（复制）到剪贴板
         clipboard.setPrimaryClip(clipData);
-        ToastUtil.show("复制成功˚*̥(∗*⁰͈꒨⁰͈)*̥");
+        ToastUtil.showLong(content + " 已复制（￣︶￣）");
     }
 
     /**

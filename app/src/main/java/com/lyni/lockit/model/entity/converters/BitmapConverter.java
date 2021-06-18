@@ -2,6 +2,8 @@ package com.lyni.lockit.model.entity.converters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Base64;
@@ -13,7 +15,7 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * @author Liangyong Ni
- * description Bitmap与String转换器
+ * description Bitmap、Drawable与String转换器
  * @date 2021/6/13
  */
 public class BitmapConverter {
@@ -23,7 +25,6 @@ public class BitmapConverter {
      * @param icon base64字符串
      * @return 转化后的Bitmap
      */
-    @TypeConverter
     public static synchronized Bitmap stringToBitmap(@NonNull String icon) {
         byte[] img = Base64.decode(icon.getBytes(), Base64.DEFAULT);
         if (img != null) {
@@ -32,14 +33,12 @@ public class BitmapConverter {
         return null;
     }
 
-
     /**
      * 将bitmap转为base64格式的字符串
      *
      * @param bitmap 需要转换的bitmap
      * @return 转化后的base64字符串
      */
-    @TypeConverter
     public static String bitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         //参数100表示不压缩
@@ -65,5 +64,52 @@ public class BitmapConverter {
      */
     public static Bitmap drawableToBitmap(Drawable drawable) {
         return ((BitmapDrawable) drawable).getBitmap();
+    }
+
+    /**
+     * 将字符串转化为Drawable
+     *
+     * @param icon 需要转化的字符串
+     * @return 转化后的Drawable
+     */
+    @TypeConverter
+    public synchronized Drawable stringToDrawable(String icon) {
+        byte[] img = Base64.decode(icon.getBytes(), Base64.DEFAULT);
+        Bitmap bitmap;
+        if (img != null) {
+            bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+            return new BitmapDrawable(bitmap);
+        }
+        return null;
+
+    }
+
+    /**
+     * 将Drawable转化为字符串
+     *
+     * @param drawable 需要转化的Drawable
+     * @return 转化后的字符串
+     */
+    @TypeConverter
+    public synchronized String drawableToByte(Drawable drawable) {
+        if (drawable != null) {
+            Bitmap bitmap = Bitmap.createBitmap(
+                    drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(),
+                    drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                            : Bitmap.Config.RGB_565);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight());
+            drawable.draw(canvas);
+            int size = bitmap.getWidth() * bitmap.getHeight() * 4;
+            // 创建一个字节数组输出流,流的大小为size
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream(size);
+            // 设置位图的压缩格式，质量为100%，并放入字节数组输出流中
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            // 将字节数组输出流转化为字节数组byte[]，进而转化成Base64字符串
+            return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+        }
+        return null;
     }
 }

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lyni.lockit.databinding.ActivityMainBinding;
+import com.lyni.lockit.ui.listener.OnPressBackListener;
 
 /**
  * @author Liangyong Ni
@@ -76,10 +77,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public interface OnPressBackListener {
-        /**
-         * 按下返回键时调用
-         */
-        void onPressBack();
-    }
 }

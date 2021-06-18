@@ -9,8 +9,8 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,16 +18,16 @@
 
         <ImageView
             android:id="@+id/item_rv_summary_app_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/summary_desc_app_icon"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_android_round_32"
             app:layout_constraintBottom_toBottomOf="@+id/item_rv_summary_app_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/item_rv_summary_app_name" />
 
         <TextView
             android:id="@+id/item_rv_summary_app_name"
@@ -46,7 +46,7 @@
             android:id="@+id/item_rv_summary_account_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="12dp"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,67 +57,53 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
+            android:layout_marginStart="8dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/item_rv_summary_account_name"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_rv_summary_account_name"
             app:layout_constraintTop_toTopOf="@+id/item_rv_summary_account_name">
 
             <ImageView
                 android:id="@+id/item_rv_summary_tele"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                style="@style/iv_summary_item"
                 android:contentDescription="@string/add_record_ib_desc_tele"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_phone_28" />
+                app:srcCompat="@drawable/ic_phone_round_24"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/item_rv_summary_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                style="@style/iv_summary_item"
                 android:contentDescription="@string/add_record_ib_desc_email"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_email_28" />
-
-
-            <ImageView
-                android:id="@+id/item_rv_summary_wechat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:contentDescription="@string/add_record_ib_desc_wechat"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_wechat_28" />
-
+                app:srcCompat="@drawable/ic_email_round_24"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/item_rv_summary_qq"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                style="@style/iv_summary_item"
                 android:contentDescription="@string/add_record_ib_desc_qq"
-                android:src="@drawable/ic_qq_28"
-                android:visibility="gone" />
+                android:src="@drawable/ic_qq_24"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/item_rv_summary_wechat"
+                style="@style/iv_summary_item"
+                android:contentDescription="@string/add_record_ib_desc_wechat"
+                app:srcCompat="@drawable/ic_wechat_24"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/item_rv_summary_weibo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                style="@style/iv_summary_item"
                 android:contentDescription="@string/add_record_ib_desc_weibo"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_weibo_28" />
+                app:srcCompat="@drawable/ic_weibo_24"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/item_rv_summary_alipay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
+                style="@style/iv_summary_item"
                 android:contentDescription="@string/add_record_ib_desc_alipay"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_alipay_28" />
+                app:srcCompat="@drawable/ic_alipay_24"
+                tools:visibility="visible" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

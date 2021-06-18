@@ -128,6 +128,24 @@ public class Account implements Parcelable {
         }
     }
 
+    @NotNull
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id='" + id + '\'' +
+                ", uid='" + uid + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", notes='" + notes + '\'' +
+                ", tele='" + tele + '\'' +
+                ", email='" + email + '\'' +
+                ", qq='" + qq + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", alipay='" + alipay + '\'' +
+                ", weibo='" + weibo + '\'' +
+                '}';
+    }
+
     public String getAlipay() {
         return alipay;
     }
@@ -284,6 +302,7 @@ public class Account implements Parcelable {
         account.setUid(uid);
         account.setUsername(username);
         account.setPassword(password);
+        account.setNotes(notes);
         account.setTele(tele);
         account.setEmail(email);
         account.setQq(qq);

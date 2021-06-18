@@ -18,12 +18,10 @@ import java.io.File;
  * @date 2021/6/13
  */
 public class LogUtil {
-    private static final String TAG = "LogUtil";
     private static final long MAX_TIME = 24 * 60 * 60 * 1000;
     private static String logDir = "";
 
     private static void init() {
-
         // 指定日志级别，低于该级别的日志将不会被打印，默认为 LogLevel.ALL
         // 允许打印线程信息，默认禁止
         // 允许打印深度为 2 的调用栈信息，默认禁止
@@ -39,7 +37,6 @@ public class LogUtil {
         Printer androidPrinter = new AndroidPrinter(true);
         // 通过 System.out 打印日志到控制台的打印器
         Printer consolePrinter = new ConsolePrinter();
-
         // 打印日志到文件的打印器
         // 指定保存日志文件的路径
         // 指定日志文件名生成器，默认为 ChangelessFileNameGenerator("log")

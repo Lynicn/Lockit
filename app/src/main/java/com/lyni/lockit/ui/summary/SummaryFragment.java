@@ -22,7 +22,6 @@ import com.lyni.lockit.databinding.FragmentSummaryBinding;
  */
 public class SummaryFragment extends Fragment {
 
-    private SummaryViewModel mViewModel;
     private FragmentSummaryBinding binding;
 
     @Override
@@ -35,7 +34,7 @@ public class SummaryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
+        SummaryViewModel mViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
         SummaryAdapter adapter = new SummaryAdapter(this);
         binding.summaryRecords.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.summaryRecords.setAdapter(adapter);

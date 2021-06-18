@@ -1,5 +1,6 @@
 package com.lyni.lockit.ui.add.record;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -15,8 +16,10 @@ import androidx.navigation.Navigation;
 import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentAddRecordBinding;
 import com.lyni.lockit.model.entity.record.Account;
+import com.lyni.lockit.model.entity.record.AppInfo;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
+import com.lyni.lockit.ui.MainActivity;
 import com.lyni.lockit.ui.dialog.SimpleInputDialog;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 
@@ -31,6 +34,7 @@ public class AddRecordFragment extends Fragment {
     FragmentAddRecordBinding binding;
     private Record newRecord;
     private Account mainAccount;
+    private AppInfo appInfo;
     private SimpleInputDialog simpleInputDialog;
 
     @Override
@@ -43,15 +47,31 @@ public class AddRecordFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        String keyString = "selected_app";
+        if (getArguments() != null && getArguments().containsKey(keyString)) {
+            appInfo = getArguments().getParcelable(keyString);
+        }
+
+        ((MainActivity) requireActivity()).setOnPressBackListener(() -> Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false));
         simpleInputDialog = new SimpleInputDialog(requireContext());
 
         newRecord = new Record();
         mainAccount = new Account();
         newRecord.setAccount(mainAccount);
 
+        if (appInfo != null) {
+            newRecord.setName(appInfo.getName());
+            newRecord.setPackageName(appInfo.getPackageName());
+            Drawable icon = appInfo.getIcon();
+            binding.selectApp.setImageDrawable(icon);
+            binding.appName.setText(appInfo.getName());
+        }
+
         setEditTextFocusChangedListener();
 
         setImageButtonClickListener();
+
+        binding.selectApp.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_addRecordFragment_to_selectAppFragment));
 
         binding.done.setOnClickListener(v -> {
             binding.appName.clearFocus();
@@ -69,6 +89,9 @@ public class AddRecordFragment extends Fragment {
                 return;
             }
             Repository.insert(newRecord);
+            if (appInfo != null) {
+                Repository.insert(appInfo);
+            }
             Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false);
         });
     }

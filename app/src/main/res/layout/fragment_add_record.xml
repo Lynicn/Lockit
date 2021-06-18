@@ -10,25 +10,51 @@
     <TextView
         android:id="@+id/textView"
         style="@style/primary_title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
-        android:text="@string/add_record_tv_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:text="@string/add_record_tv_title" />
 
     <LinearLayout
         android:id="@+id/temp_layout_1"
         style="@style/cardView_linearlayout"
         android:layout_below="@id/textView">
 
-        <EditText
-            android:id="@+id/appName"
-            style="@style/et_add_account"
+        <RelativeLayout
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
             android:background="@drawable/bg_et_add"
-            android:drawableStart="@drawable/ic_android_round_32"
-            android:hint="@string/add_record_et_hint_app_name"
-            android:importantForAutofill="no"
-            android:inputType="text" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/appName"
+                style="@style/et_add_account"
+                android:layout_marginBottom="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/selectApp"
+                android:drawableStart="@drawable/ic_android_round_28"
+                android:hint="@string/add_record_et_hint_app_name"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <ImageButton
+                android:id="@+id/selectApp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:scaleType="fitCenter"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@null"
+                android:contentDescription="@string/select"
+                android:src="@drawable/ic_app_icon_32" />
+        </RelativeLayout>
+
 
         <EditText
             android:id="@+id/appUrl"
@@ -82,13 +108,13 @@
             android:id="@+id/phone"
             style="@style/ib_login_way"
             android:contentDescription="@string/add_record_ib_desc_tele"
-            android:src="@drawable/ic_phone_28" />
+            android:src="@drawable/ic_phone_round_28" />
 
         <ImageButton
             android:id="@+id/email"
             style="@style/ib_login_way"
             android:contentDescription="@string/add_record_ib_desc_email"
-            android:src="@drawable/ic_email_28" />
+            android:src="@drawable/ic_email_round_28" />
 
         <ImageButton
             android:id="@+id/qq"
@@ -137,8 +163,8 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:background="@null"
-            android:hint="@string/add_record_et_hint_notes"
             android:gravity="top"
+            android:hint="@string/add_record_et_hint_notes"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:padding="16dp" />

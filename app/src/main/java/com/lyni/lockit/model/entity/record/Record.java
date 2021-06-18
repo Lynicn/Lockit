@@ -42,7 +42,7 @@ public class Record implements Parcelable {
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "package_name")
-    private String packageName;
+    private String packageName = "default";
     @ColumnInfo(name = "url")
     private String url;
     @ColumnInfo(name = "account")
@@ -71,7 +71,6 @@ public class Record implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
 
 
     public boolean isReady() {
@@ -104,6 +103,18 @@ public class Record implements Parcelable {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    @NotNull
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", url='" + url + '\'' +
+                ", account=" + account +
+                '}';
     }
 
     @NotNull
