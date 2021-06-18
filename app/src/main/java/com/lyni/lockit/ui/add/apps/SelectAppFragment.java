@@ -4,14 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentSelectAppBinding;
 import com.lyni.lockit.repository.Repository;
+import com.lyni.lockit.ui.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,14 +34,19 @@ public class SelectAppFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSelectAppBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        AppsAdapter appsAdapter = new AppsAdapter(this);
+        String keyString = "from";
+        // true表示由添加页面跳转
+        boolean from = true;
+        if (getArguments() != null && getArguments().containsKey(keyString)) {
+            from = getArguments().getBoolean(keyString);
+        }
+        AppsAdapter appsAdapter = new AppsAdapter(this, from);
         appsAdapter.setApps(Repository.getInstalledApps());
         binding.appsShow.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.appsShow.setAdapter(appsAdapter);
@@ -52,5 +58,11 @@ public class SelectAppFragment extends Fragment {
             }
             appsAdapter.notifyDataSetChanged();
         });
+
+        if (from) {
+            ((MainActivity) requireActivity()).setOnPressBackListener(navController -> navController.popBackStack(R.id.addRecordFragment, false));
+        } else {
+            ((MainActivity) requireActivity()).setOnPressBackListener(navController -> navController.popBackStack(R.id.detailsFragment, false));
+        }
     }
 }

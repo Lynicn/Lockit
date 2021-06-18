@@ -1,5 +1,7 @@
 package com.lyni.lockit.ui.listener;
 
+import androidx.navigation.NavController;
+
 /**
  * @author Liangyong Ni
  * description 返回键事件监听接口
@@ -9,5 +11,5 @@ public interface OnPressBackListener {
     /**
      * 按下返回键时调用
      */
-    void onPressBack();
+    void onPressBack(NavController navController);
 }

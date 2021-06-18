@@ -2,7 +2,6 @@ package com.lyni.lockit.ui.summary;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,6 @@ import com.lyni.lockit.R;
 import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
-import com.lyni.lockit.ui.listener.DoubleClickListener;
-import com.lyni.lockit.utils.clipboard.ClipboardUtil;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
@@ -57,9 +58,11 @@ public class Repository {
                 }
                 // 系统应用
                 ALL_APPS.add(appInfo);
-                ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_28));
+                // TODO: 2021/6/19 图片获取问题
+                ICON_CACHE.put(appInfo.getPackageName(), appInfo.getIcon());
             }
         }).start();
+        ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_28));
     }
 
     public static ArrayList<AppInfo> getInstalledApps() {
@@ -75,6 +78,7 @@ public class Repository {
     }
 
     public static Drawable getIconByPackageName(String packageName) {
+        Log.e(TAG, "getIconByPackageName: " + packageName);
         if (packageName == null) {
             return ICON_CACHE.get("null");
         }

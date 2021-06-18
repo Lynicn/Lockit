@@ -1,7 +1,6 @@
 package com.lyni.lockit.ui.add.apps;
 
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.lyni.lockit.R;
+import com.lyni.lockit.model.entity.message.Message;
+import com.lyni.lockit.model.entity.message.MessageType;
 import com.lyni.lockit.model.entity.record.AppInfo;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,11 +29,13 @@ import java.util.List;
  */
 public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.MyViewHolder> {
 
+    private final Fragment fragment;
+    private final boolean from;
     private List<AppInfo> apps;
-    private Fragment fragment;
 
-    public AppsAdapter(Fragment fragment) {
+    public AppsAdapter(Fragment fragment, boolean from) {
         this.fragment = fragment;
+        this.from = from;
     }
 
     public void setApps(List<AppInfo> apps) {
@@ -53,9 +57,8 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.MyViewHolder> 
         icon.setBounds(0, 0, 80, 80);
         holder.app.setCompoundDrawablesRelative(icon, null, null, null);
         holder.item.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("selected_app", appInfo);
-            Navigation.findNavController(fragment.requireView()).navigate(R.id.addRecordFragment, bundle);
+            EventBus.getDefault().post(new Message(from ? MessageType.SA_AR_APP_INFO : MessageType.SA_D_APP_INFO, appInfo));
+            Navigation.findNavController(fragment.requireView()).popBackStack();
         });
     }
 

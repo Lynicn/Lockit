@@ -1,6 +1,5 @@
 package com.lyni.lockit.ui.detail;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -16,13 +15,19 @@ import androidx.navigation.Navigation;
 
 import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentDetailsBinding;
+import com.lyni.lockit.model.entity.message.Message;
+import com.lyni.lockit.model.entity.message.MessageType;
 import com.lyni.lockit.model.entity.record.Account;
+import com.lyni.lockit.model.entity.record.AppInfo;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
 import com.lyni.lockit.ui.MainActivity;
 import com.lyni.lockit.ui.dialog.SimpleInputDialog;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 import com.lyni.lockit.utils.clipboard.ClipboardUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * @author Liangyong Ni
@@ -31,11 +36,39 @@ import com.lyni.lockit.utils.clipboard.ClipboardUtil;
  */
 public class DetailsFragment extends Fragment {
     FragmentDetailsBinding binding;
+    /**
+     * 首页传递过来的Record
+     */
+    private Record currentRecord;
+    /**
+     * 可能产生修改后的Record
+     */
     private Record record;
     private int loginWay = 0;
     private Account account;
     private String recordId;
     private SimpleInputDialog inputDialog;
+    private MainActivity mainActivity;
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+        mainActivity = (MainActivity) requireActivity();
+        inputDialog = new SimpleInputDialog(requireContext());
+        String keyString = "record";
+        if (getArguments() != null && getArguments().containsKey(keyString)) {
+            currentRecord = getArguments().getParcelable(keyString);
+            record = currentRecord.getCopy();
+            account = record.getAccount();
+            recordId = record.getId();
+            inputDialog = new SimpleInputDialog(requireContext());
+            loginWay = account.getMinLoginWay();
+        } else {
+            ToastUtil.show("程序内部错误 (●ˇ∀ˇ●)");
+            mainActivity.getNavController().popBackStack(R.id.summaryFragment, false);
+        }
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,25 +80,18 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        String keyString = "record";
-        Record currentRecord;
-        if (getArguments() != null && getArguments().containsKey(keyString)) {
-            currentRecord = getArguments().getParcelable(keyString);
-            record = currentRecord.getCopy();
-            account = record.getAccount();
-            recordId = record.getId();
-            inputDialog = new SimpleInputDialog(requireContext());
-            loginWay = account.getMinLoginWay();
-        } else {
-            ToastUtil.show("程序内部错误 (●ˇ∀ˇ●)");
-            Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false);
-            return;
-        }
 
         initView();
         setCopyImageButtonClickListener();
         setLoginWaysClickListener();
         setTextViewClickListener();
+
+        binding.detailsSelectApp.setImageDrawable(Repository.getIconByPackageName(record.getPackageName()));
+        binding.detailsSelectApp.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("from", false);
+            Navigation.findNavController(requireView()).navigate(R.id.action_detailsFragment_to_selectAppFragment, bundle);
+        });
 
         binding.detailsDelete.setOnClickListener(v -> {
             if (Repository.deleteRecordsByIds(recordId)) {
@@ -75,7 +101,7 @@ public class DetailsFragment extends Fragment {
                 ToastUtil.show("删除失败，请重试꒲⌯ ू(ꆧ⚇̭ꆧ ूˆ)");
             }
         });
-        ((MainActivity) requireActivity()).setOnPressBackListener(() -> {
+        mainActivity.setOnPressBackListener(navController -> {
             if (record.equals(currentRecord)) {
                 Navigation.findNavController(requireView()).popBackStack();
                 return;
@@ -84,7 +110,7 @@ public class DetailsFragment extends Fragment {
                     .setMessage("是否保存修改？")
                     .setPositiveButton("是", (dialog, which) -> {
                         Repository.update(record);
-                        Navigation.findNavController(requireView()).popBackStack();
+                        navController.popBackStack();
                     })
                     .setNegativeButton("否", null)
                     .create().show();
@@ -197,6 +223,23 @@ public class DetailsFragment extends Fragment {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void messageHandler(Message message) {
+        if (message.getMessageType() == MessageType.SA_D_APP_INFO) {
+            AppInfo appInfo = (AppInfo) message.getObject();
+            record.setName(appInfo.getName());
+            record.setPackageName(appInfo.getPackageName());
+            binding.detailsAppName.setText(record.getName());
+            binding.detailsSelectApp.setImageDrawable(appInfo.getIcon());
         }
     }
 }

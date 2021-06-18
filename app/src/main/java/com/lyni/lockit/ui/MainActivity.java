@@ -9,9 +9,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.ActivityMainBinding;
 import com.lyni.lockit.ui.listener.OnPressBackListener;
+
+import java.util.Objects;
 
 /**
  * @author Liangyong Ni
@@ -20,6 +26,14 @@ import com.lyni.lockit.ui.listener.OnPressBackListener;
  */
 public class MainActivity extends AppCompatActivity {
     private OnPressBackListener onPressBackListener;
+    private NavController navController;
+
+    public NavController getNavController() {
+        if (navController == null) {
+            navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+        }
+        return navController;
+    }
 
     public void setOnPressBackListener(OnPressBackListener onPressBackListener) {
         this.onPressBackListener = onPressBackListener;
@@ -31,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         com.lyni.lockit.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getWindow().setStatusBarColor(Color.GRAY);
+        navController = ((NavHostFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView))).getNavController();
     }
 
     @Override
@@ -69,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (onPressBackListener != null) {
-            onPressBackListener.onPressBack();
+            onPressBackListener.onPressBack(navController);
             // 确保每次设置的返回事件监听器只执行一次
             onPressBackListener = null;
         } else {

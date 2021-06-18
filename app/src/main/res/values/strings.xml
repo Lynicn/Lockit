@@ -24,10 +24,10 @@
     <string name="add_record_desc_done">完成按钮</string>
     <string name="dialog_simple_input_hint">请在此输入</string>
 
-    <string name="copy">复制</string>
     <string name="delete">删除</string>
     <string name="modify">修改</string>
     <string name="select">选择</string>
 
     <string name="search_cb_hint">是否显示系统应用</string>
+    <string name="copy">复制</string>
 </resources>

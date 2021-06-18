@@ -1,10 +1,10 @@
 package com.lyni.lockit.ui.add.record;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,8 @@ import androidx.navigation.Navigation;
 
 import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentAddRecordBinding;
+import com.lyni.lockit.model.entity.message.Message;
+import com.lyni.lockit.model.entity.message.MessageType;
 import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.AppInfo;
 import com.lyni.lockit.model.entity.record.Record;
@@ -23,6 +25,8 @@ import com.lyni.lockit.ui.MainActivity;
 import com.lyni.lockit.ui.dialog.SimpleInputDialog;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -31,11 +35,18 @@ import org.jetbrains.annotations.NotNull;
  * @date 2021/6/15
  */
 public class AddRecordFragment extends Fragment {
+    private static final String TAG = "AddRecordFragment";
     FragmentAddRecordBinding binding;
     private Record newRecord;
     private Account mainAccount;
     private AppInfo appInfo;
     private SimpleInputDialog simpleInputDialog;
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -47,32 +58,24 @@ public class AddRecordFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        String keyString = "selected_app";
-        if (getArguments() != null && getArguments().containsKey(keyString)) {
-            appInfo = getArguments().getParcelable(keyString);
-        }
 
-        ((MainActivity) requireActivity()).setOnPressBackListener(() -> Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false));
+        binding.appName.setSaveEnabled(false);
+        ((MainActivity) requireActivity()).setOnPressBackListener(navController -> navController.popBackStack(R.id.summaryFragment, false));
+
         simpleInputDialog = new SimpleInputDialog(requireContext());
 
         newRecord = new Record();
         mainAccount = new Account();
         newRecord.setAccount(mainAccount);
 
-        if (appInfo != null) {
-            newRecord.setName(appInfo.getName());
-            newRecord.setPackageName(appInfo.getPackageName());
-            Drawable icon = appInfo.getIcon();
-            binding.selectApp.setImageDrawable(icon);
-            binding.appName.setText(appInfo.getName());
-        }
-
+        setBasicByAppInfo();
         setEditTextFocusChangedListener();
-
         setImageButtonClickListener();
-
-        binding.selectApp.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_addRecordFragment_to_selectAppFragment));
-
+        binding.selectApp.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("from", true);
+            Navigation.findNavController(requireView()).navigate(R.id.action_addRecordFragment_to_selectAppFragment, bundle);
+        });
         binding.done.setOnClickListener(v -> {
             binding.appName.clearFocus();
             binding.appUrl.clearFocus();
@@ -92,8 +95,18 @@ public class AddRecordFragment extends Fragment {
             if (appInfo != null) {
                 Repository.insert(appInfo);
             }
-            Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false);
+            Navigation.findNavController(requireView()).popBackStack();
         });
+    }
+
+    private void setBasicByAppInfo() {
+        if (appInfo != null) {
+            newRecord.setName(appInfo.getName());
+            newRecord.setPackageName(appInfo.getPackageName());
+            binding.selectApp.setImageDrawable(appInfo.getIcon());
+            binding.appName.setText(appInfo.getName());
+            Log.e(TAG, "setBasicByAppInfo: " + appInfo.getName());
+        }
     }
 
     private void setImageButtonClickListener() {
@@ -203,4 +216,19 @@ public class AddRecordFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void messageHandler(Message message) {
+        if (message.getMessageType() == MessageType.SA_AR_APP_INFO) {
+            appInfo = (AppInfo) message.getObject();
+        }
+    }
+
+
 }
