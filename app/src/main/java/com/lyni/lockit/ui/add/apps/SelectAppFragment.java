@@ -42,10 +42,8 @@ public class SelectAppFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         String keyString = "from";
         // true表示由添加页面跳转
-        boolean from = true;
-        if (getArguments() != null && getArguments().containsKey(keyString)) {
-            from = getArguments().getBoolean(keyString);
-        }
+        assert getArguments() != null;
+        final boolean from = getArguments().getBoolean(keyString);
         AppsAdapter appsAdapter = new AppsAdapter(this, from);
         appsAdapter.setApps(Repository.getInstalledApps());
         binding.appsShow.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -58,11 +56,6 @@ public class SelectAppFragment extends Fragment {
             }
             appsAdapter.notifyDataSetChanged();
         });
-
-        if (from) {
-            ((MainActivity) requireActivity()).setOnPressBackListener(navController -> navController.popBackStack(R.id.addRecordFragment, false));
-        } else {
-            ((MainActivity) requireActivity()).setOnPressBackListener(navController -> navController.popBackStack(R.id.detailsFragment, false));
-        }
+        ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> mActivity.getNavController().popBackStack(from ? R.id.addRecordFragment : R.id.detailsFragment, false));
     }
 }

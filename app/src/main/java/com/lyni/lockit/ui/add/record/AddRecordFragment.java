@@ -23,6 +23,7 @@ import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
 import com.lyni.lockit.ui.MainActivity;
 import com.lyni.lockit.ui.dialog.SimpleInputDialog;
+import com.lyni.lockit.ui.listener.OnPressBackListener;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -60,7 +61,7 @@ public class AddRecordFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         binding.appName.setSaveEnabled(false);
-        ((MainActivity) requireActivity()).setOnPressBackListener(navController -> navController.popBackStack(R.id.summaryFragment, false));
+        ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> mActivity.getNavController().popBackStack(R.id.summaryFragment, false));
 
         simpleInputDialog = new SimpleInputDialog(requireContext());
 

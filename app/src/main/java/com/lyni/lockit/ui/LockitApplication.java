@@ -16,6 +16,19 @@ import java.io.File;
 public class LockitApplication extends Application {
     @SuppressLint("StaticFieldLeak")
     private static Context context;
+    private static boolean authenticated;
+
+    public static boolean isAuthenticated() {
+        return authenticated;
+    }
+
+    public static void setAuthenticated(boolean authenticated) {
+        LockitApplication.authenticated = authenticated;
+    }
+
+    public static Context getContext() {
+        return context;
+    }
 
     @Override
     public void onCreate() {
@@ -33,9 +46,5 @@ public class LockitApplication extends Application {
         } else {
             LogUtil.setLogDirAndInit(logDir);
         }
-    }
-
-    public static Context getContext() {
-        return context;
     }
 }

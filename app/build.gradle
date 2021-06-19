@@ -9,10 +9,13 @@ android {
         applicationId "com.lyni.lockit"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "Lockit_${buildType.name}_v${versionName}.apk"
+        }
     }
 
     buildTypes {
@@ -42,6 +45,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'com.elvishew:xlog:1.9.0'
     implementation "androidx.room:room-runtime:2.3.0"
+    implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'org.greenrobot:eventbus:3.2.0'
     annotationProcessor "androidx.room:room-compiler:2.3.0"

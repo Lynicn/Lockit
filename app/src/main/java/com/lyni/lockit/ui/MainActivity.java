@@ -2,6 +2,8 @@ package com.lyni.lockit.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -84,12 +87,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (onPressBackListener != null) {
-            onPressBackListener.onPressBack(navController);
+            onPressBackListener.onPressBack(this);
             // 确保每次设置的返回事件监听器只执行一次
             onPressBackListener = null;
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LockitApplication.setAuthenticated(false);
     }
 
 }

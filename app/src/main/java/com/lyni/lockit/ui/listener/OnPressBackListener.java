@@ -1,6 +1,6 @@
 package com.lyni.lockit.ui.listener;
 
-import androidx.navigation.NavController;
+import com.lyni.lockit.ui.MainActivity;
 
 /**
  * @author Liangyong Ni
@@ -10,6 +10,8 @@ import androidx.navigation.NavController;
 public interface OnPressBackListener {
     /**
      * 按下返回键时调用
+     *
+     * @param mActivity MainActivity对象
      */
-    void onPressBack(NavController navController);
+    void onPressBack(MainActivity mActivity);
 }

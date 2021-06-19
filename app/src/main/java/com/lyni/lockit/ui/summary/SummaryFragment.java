@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentSummaryBinding;
+import com.lyni.lockit.ui.LockitApplication;
 
 /**
  * @author Liangyong Ni
@@ -34,6 +35,9 @@ public class SummaryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if (!LockitApplication.isAuthenticated()) {
+            Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_authenticateFragment);
+        }
         SummaryViewModel mViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
         SummaryAdapter adapter = new SummaryAdapter(this);
         binding.summaryRecords.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -45,6 +49,5 @@ public class SummaryFragment extends Fragment {
 
         binding.summaryAddRecord.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addRecordFragment));
     }
-
 
 }

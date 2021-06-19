@@ -94,23 +94,29 @@ public class DetailsFragment extends Fragment {
         });
 
         binding.detailsDelete.setOnClickListener(v -> {
-            if (Repository.deleteRecordsByIds(recordId)) {
-                ToastUtil.show("删除成功(*ꈍ꒙ꈍ*)");
-                Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false);
-            } else {
-                ToastUtil.show("删除失败，请重试꒲⌯ ू(ꆧ⚇̭ꆧ ूˆ)");
-            }
+            new AlertDialog.Builder(requireContext())
+                    .setMessage("是否删除记录？")
+                    .setPositiveButton("是", (dialog, which) -> {
+                        if (Repository.deleteRecordsByIds(recordId)) {
+                            ToastUtil.show("删除成功(*ꈍ꒙ꈍ*)");
+                            Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false);
+                        } else {
+                            ToastUtil.show("删除失败，请重试꒲⌯ ू(ꆧ⚇̭ꆧ ूˆ)");
+                        }
+                    })
+                    .setNegativeButton("否", null)
+                    .create().show();
         });
-        mainActivity.setOnPressBackListener(navController -> {
+        mainActivity.setOnPressBackListener(mActivity -> {
             if (record.equals(currentRecord)) {
-                Navigation.findNavController(requireView()).popBackStack();
+                mActivity.getNavController().popBackStack();
                 return;
             }
             new AlertDialog.Builder(requireContext())
                     .setMessage("是否保存修改？")
                     .setPositiveButton("是", (dialog, which) -> {
                         Repository.update(record);
-                        navController.popBackStack();
+                        mActivity.getNavController().popBackStack();
                     })
                     .setNegativeButton("否", null)
                     .create().show();
