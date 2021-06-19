@@ -5,7 +5,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
@@ -26,6 +25,7 @@ import java.util.List;
  * @date 2021/6/13
  */
 // TODO: 2021/6/18
+
 @SuppressLint("UseCompatLoadingForDrawables")
 public class Repository {
     private static final String TAG = "Repository";
@@ -42,7 +42,7 @@ public class Repository {
         new Thread(() -> {
             // 获取已经安装的所有应用, PackageInfo　系统类，包含应用信息
             PackageManager packageManager = LockitApplication.getContext().getPackageManager();
-            @SuppressLint("QueryPermissionsNeeded") List<PackageInfo> packages = packageManager.getInstalledPackages(0);
+            List<PackageInfo> packages = packageManager.getInstalledPackages(0);
             for (int i = 0; i < packages.size(); i++) {
                 PackageInfo packageInfo = packages.get(i);
                 AppInfo appInfo = new AppInfo();
@@ -78,7 +78,6 @@ public class Repository {
     }
 
     public static Drawable getIconByPackageName(String packageName) {
-        Log.e(TAG, "getIconByPackageName: " + packageName);
         if (packageName == null) {
             return ICON_CACHE.get("null");
         }
@@ -111,9 +110,6 @@ public class Repository {
         DATABASE.recordDao().insertRecords(records);
     }
 
-    public static void delete(Record... records) {
-        DATABASE.recordDao().deleteRecords(records);
-    }
 
     public static void update(Record... records) {
         DATABASE.recordDao().updateRecords(records);
