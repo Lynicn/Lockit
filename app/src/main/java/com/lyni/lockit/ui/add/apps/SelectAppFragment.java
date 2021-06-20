@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentSelectAppBinding;
 import com.lyni.lockit.repository.Repository;
 import com.lyni.lockit.ui.MainActivity;
+import com.lyni.lockit.ui.base.BaseFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * description 选择应用界面
  * @date 2021/6/17
  */
-public class SelectAppFragment extends Fragment {
+public class SelectAppFragment extends BaseFragment {
 
     FragmentSelectAppBinding binding;
 

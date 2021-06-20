@@ -2,8 +2,7 @@ package com.lyni.lockit.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -28,6 +27,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     private OnPressBackListener onPressBackListener;
     private NavController navController;
+    private static final String TAG = "MainActivity";
 
     public NavController getNavController() {
         if (navController == null) {

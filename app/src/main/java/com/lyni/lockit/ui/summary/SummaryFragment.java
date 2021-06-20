@@ -7,21 +7,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentSummaryBinding;
-import com.lyni.lockit.ui.LockitApplication;
+import com.lyni.lockit.ui.base.BaseFragment;
 
 /**
  * @author Liangyong Ni
  * description 首页
  * @date 2021/6/13
  */
-public class SummaryFragment extends Fragment {
+public class SummaryFragment extends BaseFragment {
 
     private FragmentSummaryBinding binding;
 
@@ -35,9 +34,6 @@ public class SummaryFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (!LockitApplication.isAuthenticated()) {
-            Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_authenticateFragment);
-        }
         SummaryViewModel mViewModel = new ViewModelProvider(this).get(SummaryViewModel.class);
         SummaryAdapter adapter = new SummaryAdapter(this);
         binding.summaryRecords.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -46,8 +42,6 @@ public class SummaryFragment extends Fragment {
             adapter.setRecords(records);
             adapter.notifyDataSetChanged();
         });
-
         binding.summaryAddRecord.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addRecordFragment));
     }
-
 }

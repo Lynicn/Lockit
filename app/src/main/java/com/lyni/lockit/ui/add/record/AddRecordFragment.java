@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.lyni.lockit.R;
@@ -22,8 +21,8 @@ import com.lyni.lockit.model.entity.record.AppInfo;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
 import com.lyni.lockit.ui.MainActivity;
+import com.lyni.lockit.ui.base.BaseFragment;
 import com.lyni.lockit.ui.dialog.SimpleInputDialog;
-import com.lyni.lockit.ui.listener.OnPressBackListener;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
  * description 添加账户界面
  * @date 2021/6/15
  */
-public class AddRecordFragment extends Fragment {
+public class AddRecordFragment extends BaseFragment {
     private static final String TAG = "AddRecordFragment";
     FragmentAddRecordBinding binding;
     private Record newRecord;
@@ -230,6 +229,4 @@ public class AddRecordFragment extends Fragment {
             appInfo = (AppInfo) message.getObject();
         }
     }
-
-
 }

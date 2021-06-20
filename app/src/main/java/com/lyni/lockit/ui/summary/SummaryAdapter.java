@@ -2,6 +2,7 @@ package com.lyni.lockit.ui.summary;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import com.lyni.lockit.R;
 import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
+import com.lyni.lockit.ui.listener.MyClickListener;
+import com.lyni.lockit.utils.ToastUtil.ToastUtil;
+import com.lyni.lockit.utils.clipboard.ClipboardUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,8 +33,6 @@ import java.util.List;
  */
 public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHolder> {
 
-    private static final long CLICK_INTERVAL_TIME = 300;
-    private static long lastClickTime = 0;
 
     private final Fragment fragment;
     private List<Record> records;
@@ -52,7 +54,6 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
-        lastClickTime = 0;
         Record record = records.get(position);
         holder.appName.setText(record.getName() == null ? record.getUrl() : record.getName());
         holder.icon.setImageDrawable(Repository.getIconByPackageName(record.getPackageName()));
@@ -76,11 +77,7 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
         if (recordAccount.getAlipay() != null) {
             holder.alipay.setVisibility(View.VISIBLE);
         }
-        holder.item.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("record", record);
-            Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment, bundle);
-        });
+
         holder.item.setOnLongClickListener(v -> {
             new AlertDialog.Builder(fragment.requireContext())
                     .setMessage("是否删除该记录")
@@ -90,16 +87,22 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
             return true;
         });
 
-//        holder.item.setOnClickListener(v -> {
-//            long currentTimeMillis = SystemClock.uptimeMillis();
-//            //两次点击间隔时间小于300ms代表双击
-//            if (currentTimeMillis - lastClickTime < CLICK_INTERVAL_TIME) {
-//                String content = recordAccount.getPassword() == null ? recordAccount.getUid() : recordAccount.getPassword();
-//                ClipboardUtil.copy(fragment.requireContext(), content);
-//                return;
-//            }
-//            lastClickTime = currentTimeMillis;
-//        });
+        holder.item.setOnTouchListener(new MyClickListener(new MyClickListener.MyClickCallBack() {
+            @Override
+            public void onDoubleClick() {
+                String message = recordAccount.getPassword() == null ? recordAccount.getUid() : recordAccount.getPassword();
+                ClipboardUtil.copy(fragment.requireContext(), message);
+                ToastUtil.show(message);
+            }
+
+            @Override
+            public void onSingleClick() {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("record", record);
+                Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment, bundle);
+            }
+        }, new Handler(fragment.requireActivity().getMainLooper())) {
+        });
     }
 
     @Override

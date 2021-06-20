@@ -22,6 +22,7 @@ import com.lyni.lockit.model.entity.record.AppInfo;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
 import com.lyni.lockit.ui.MainActivity;
+import com.lyni.lockit.ui.base.BaseFragment;
 import com.lyni.lockit.ui.dialog.SimpleInputDialog;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 import com.lyni.lockit.utils.clipboard.ClipboardUtil;
@@ -34,7 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
  * description 详情界面
  * @date 2021/6/13
  */
-public class DetailsFragment extends Fragment {
+public class DetailsFragment extends BaseFragment {
     FragmentDetailsBinding binding;
     /**
      * 首页传递过来的Record
