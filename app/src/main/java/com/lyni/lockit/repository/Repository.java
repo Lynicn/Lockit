@@ -18,6 +18,8 @@ import com.lyni.lockit.ui.LockitApplication;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Liangyong Ni
@@ -42,7 +44,7 @@ public class Repository {
         new Thread(() -> {
             // 获取已经安装的所有应用, PackageInfo　系统类，包含应用信息
             PackageManager packageManager = LockitApplication.getContext().getPackageManager();
-            List<PackageInfo> packages = packageManager.getInstalledPackages(0);
+            @SuppressLint("QueryPermissionsNeeded") List<PackageInfo> packages = packageManager.getInstalledPackages(0);
             for (int i = 0; i < packages.size(); i++) {
                 PackageInfo packageInfo = packages.get(i);
                 AppInfo appInfo = new AppInfo();
@@ -61,8 +63,8 @@ public class Repository {
                 // TODO: 2021/6/19 图片获取问题
                 ICON_CACHE.put(appInfo.getPackageName(), appInfo.getIcon());
             }
+            ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_28));
         }).start();
-        ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_28));
     }
 
     public static ArrayList<AppInfo> getInstalledApps() {
@@ -71,6 +73,20 @@ public class Repository {
 
     public static ArrayList<AppInfo> getAllApps() {
         return ALL_APPS;
+    }
+
+    public static ArrayList<AppInfo> findAppsByName(String name, boolean isAll) {
+        ArrayList<AppInfo> result = new ArrayList<>();
+        ArrayList<AppInfo> list = isAll ? ALL_APPS : INSTALLED_APPS;
+        // 忽略大小写
+        Pattern pattern = Pattern.compile(name, Pattern.CASE_INSENSITIVE);
+        for (int i = 0; i < list.size(); i++) {
+            Matcher matcher = pattern.matcher((list.get(i)).getName());
+            if (matcher.find()) {
+                result.add(list.get(i));
+            }
+        }
+        return result;
     }
 
     public static LiveData<List<Record>> getAllRecordsLive() {

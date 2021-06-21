@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 public class SelectAppFragment extends BaseFragment {
 
     FragmentSelectAppBinding binding;
+    private boolean isAll;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,24 @@ public class SelectAppFragment extends BaseFragment {
                 appsAdapter.setApps(Repository.getInstalledApps());
             }
             appsAdapter.notifyDataSetChanged();
+            isAll = isChecked;
         });
+        binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                appsAdapter.setApps(Repository.findAppsByName(query, isAll));
+                appsAdapter.notifyDataSetChanged();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                appsAdapter.setApps(Repository.findAppsByName(newText, isAll));
+                appsAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
         ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> mActivity.getNavController().popBackStack(from ? R.id.addRecordFragment : R.id.detailsFragment, false));
     }
 }

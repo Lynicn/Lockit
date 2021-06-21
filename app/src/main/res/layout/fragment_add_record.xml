@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,7 +50,7 @@
                 android:layout_marginEnd="12dp"
                 android:background="@null"
                 android:contentDescription="@string/select"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:src="@drawable/ic_app_icon_24" />
         </RelativeLayout>
 
@@ -170,15 +169,15 @@
             android:padding="16dp" />
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="32dp"
-        android:backgroundTint="#2196F3"
+        android:layout_marginEnd="18dp"
+        android:background="@null"
         android:contentDescription="@string/add_record_desc_done"
-        android:src="@drawable/ic_done_24"
-        app:borderWidth="0dp" />
+        android:src="@drawable/ic_done_32" />
 </RelativeLayout>

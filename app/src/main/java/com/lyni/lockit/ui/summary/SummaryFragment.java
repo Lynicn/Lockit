@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentSummaryBinding;
 import com.lyni.lockit.ui.base.BaseFragment;
+import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 
 /**
  * @author Liangyong Ni
@@ -42,6 +43,7 @@ public class SummaryFragment extends BaseFragment {
             adapter.setRecords(records);
             adapter.notifyDataSetChanged();
         });
+        binding.summarySearch.setOnClickListener(v -> ToastUtil.show("开发中( •̀ ω •́ )✧"));
         binding.summaryAddRecord.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addRecordFragment));
     }
 }
