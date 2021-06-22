@@ -51,6 +51,4 @@ public class BiometricPromptUtil {
     public static void show() {
         biometricPrompt.authenticate(PROMPT_INFO);
     }
-
-
 }

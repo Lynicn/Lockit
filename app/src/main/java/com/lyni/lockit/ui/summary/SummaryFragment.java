@@ -45,5 +45,6 @@ public class SummaryFragment extends BaseFragment {
         });
         binding.summarySearch.setOnClickListener(v -> ToastUtil.show("开发中( •̀ ω •́ )✧"));
         binding.summaryAddRecord.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_addRecordFragment));
+        binding.summarySetting.setOnClickListener(v -> Navigation.findNavController(requireView()).navigate(R.id.action_summaryFragment_to_settingsFragment));
     }
 }
