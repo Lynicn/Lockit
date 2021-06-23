@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.lyni.lockit.R;
@@ -21,6 +20,7 @@ import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.AppInfo;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
+import com.lyni.lockit.repository.ThreadPool;
 import com.lyni.lockit.ui.MainActivity;
 import com.lyni.lockit.ui.base.BaseFragment;
 import com.lyni.lockit.ui.dialog.SimpleInputDialog;
@@ -81,6 +81,8 @@ public class DetailsFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        ThreadPool.executeTasks(Repository::scanApps);
 
         initView();
         setCopyImageButtonClickListener();
@@ -237,6 +239,7 @@ public class DetailsFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        Repository.cleanAppCache();
     }
 
     @Subscribe

@@ -40,32 +40,36 @@ public class Repository {
     private static final HashMap<String, Drawable> ICON_CACHE = new HashMap<>();
 
     static {
-        // TODO: 2021/6/18
-        new Thread(() -> {
-            // 获取已经安装的所有应用, PackageInfo　系统类，包含应用信息
-            PackageManager packageManager = LockitApplication.getContext().getPackageManager();
-            @SuppressLint("QueryPermissionsNeeded") List<PackageInfo> packages = packageManager.getInstalledPackages(0);
-            for (int i = 0; i < packages.size(); i++) {
-                PackageInfo packageInfo = packages.get(i);
-                AppInfo appInfo = new AppInfo();
-                //获取应用名称
-                appInfo.setName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
-                //获取应用包名，可用于卸载和启动应用
-                appInfo.setPackageName(packageInfo.packageName);
-                //获取应用图标
-                appInfo.setIcon(packageInfo.applicationInfo.loadIcon(packageManager));
-                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                    //非系统应用
-                    INSTALLED_APPS.add(appInfo);
-                }
-                // 系统应用
-                ALL_APPS.add(appInfo);
-                // TODO: 2021/6/19 图片获取问题
-                ICON_CACHE.put(appInfo.getPackageName(), appInfo.getIcon());
-            }
-            ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_28));
-        }).start();
+        ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_28));
     }
+
+    public static void scanApps() {
+        // 获取已经安装的所有应用, PackageInfo　系统类，包含应用信息
+        PackageManager packageManager = LockitApplication.getContext().getPackageManager();
+        @SuppressLint("QueryPermissionsNeeded") List<PackageInfo> packages = packageManager.getInstalledPackages(0);
+        for (int i = 0; i < packages.size(); i++) {
+            PackageInfo packageInfo = packages.get(i);
+            AppInfo appInfo = new AppInfo();
+            //获取应用名称
+            appInfo.setName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
+            //获取应用包名，可用于卸载和启动应用
+            appInfo.setPackageName(packageInfo.packageName);
+            //获取应用图标
+            appInfo.setIcon(packageInfo.applicationInfo.loadIcon(packageManager));
+            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                //非系统应用
+                INSTALLED_APPS.add(appInfo);
+            }
+            // 系统应用
+            ALL_APPS.add(appInfo);
+        }
+    }
+
+    public static void cleanAppCache() {
+        INSTALLED_APPS.clear();
+        ALL_APPS.clear();
+    }
+
 
     public static ArrayList<AppInfo> getInstalledApps() {
         return INSTALLED_APPS;
@@ -101,7 +105,7 @@ public class Repository {
             AppInfo appInfo = DATABASE.iconDao().getIconByPackageName(packageName);
             if (appInfo != null) {
                 ICON_CACHE.put(packageName, appInfo.getIcon());
-                return ICON_CACHE.get(packageName);
+                return appInfo.getIcon();
             }
             return ICON_CACHE.get("null");
         }

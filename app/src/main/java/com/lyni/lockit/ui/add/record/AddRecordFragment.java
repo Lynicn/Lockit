@@ -20,6 +20,7 @@ import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.AppInfo;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
+import com.lyni.lockit.repository.ThreadPool;
 import com.lyni.lockit.ui.MainActivity;
 import com.lyni.lockit.ui.base.BaseFragment;
 import com.lyni.lockit.ui.dialog.SimpleInputDialog;
@@ -58,6 +59,8 @@ public class AddRecordFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        ThreadPool.executeTasks(Repository::scanApps);
 
         binding.appName.setSaveEnabled(false);
         ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> mActivity.getNavController().popBackStack(R.id.summaryFragment, false));
@@ -221,6 +224,7 @@ public class AddRecordFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        Repository.cleanAppCache();
     }
 
     @Subscribe

@@ -24,13 +24,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SelectAppFragment extends BaseFragment {
 
-    FragmentSelectAppBinding binding;
+    private FragmentSelectAppBinding binding;
+    private AppsAdapter appsAdapter;
     private boolean isAll;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -46,7 +42,7 @@ public class SelectAppFragment extends BaseFragment {
         // true表示由添加页面跳转
         assert getArguments() != null;
         final boolean from = getArguments().getBoolean(keyString);
-        AppsAdapter appsAdapter = new AppsAdapter(this, from);
+        appsAdapter = new AppsAdapter(this, from);
         appsAdapter.setApps(Repository.getInstalledApps());
         binding.appsShow.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.appsShow.setAdapter(appsAdapter);
