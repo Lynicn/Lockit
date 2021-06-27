@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/si_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/icon"
+        tools:src="@drawable/ic_password_24" />
+
+    <TextView
+        android:id="@+id/si_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@id/si_switch"
+        android:layout_toEndOf="@id/si_icon"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        tools:text="标题" />
+
+    <TextView
+        android:id="@+id/si_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/si_title"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@id/si_switch"
+        android:layout_toEndOf="@id/si_icon"
+        android:maxLines="1"
+        tools:text="子标题" />
+
+    <com.lyni.lockit.ui.customized.SwitchButton
+        android:id="@+id/si_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp" />
+
+</RelativeLayout>

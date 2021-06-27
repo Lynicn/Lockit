@@ -1,4 +1,4 @@
-package com.lyni.lockit.ui.authenticate;
+package com.lyni.lockit.ui.customized;
 
 import android.content.Context;
 import android.text.Editable;
@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lyni.lockit.R;
+import com.lyni.lockit.ui.listener.OnEnsureListener;
 
 import java.util.ArrayList;
 
@@ -88,7 +89,6 @@ public class PasswordView extends RelativeLayout {
         super(context, attrs);
         this.context = context;
         View view = View.inflate(context, R.layout.password_input, null);
-
         valueList = new ArrayList<>();
         tvList = new TextView[INPUT_NUMBER_MAX_LENGTH];
 
@@ -123,13 +123,13 @@ public class PasswordView extends RelativeLayout {
             if (position < 9 || position == 10) {
                 //点击0~9按钮
                 //判断输入位置————要小心数组越界
-                if (currentIndex >= -1 && currentIndex < INPUT_NUMBER_MAX_LENGTH) {
+                if (currentIndex >= -1 && currentIndex < INPUT_NUMBER_MAX_LENGTH - 1) {
                     tvList[++currentIndex].setText(valueList.get(position));
                 }
             } else {
                 if (position == MAX_LENGTH - 1) {
                     //点击退格键
-                    if (currentIndex - 1 >= -1) {      //判断是否删除完毕
+                    if (currentIndex - 1 >= -1) {
                         tvList[currentIndex--].setText("");
                     }
                 }
@@ -138,7 +138,7 @@ public class PasswordView extends RelativeLayout {
     }
 
 
-    public void setOnFinishInput(OnPasswordInputFinish onPasswordInputFinish) {
+    public void setOnInputFinishListener(OnEnsureListener onEnsureListener) {
         tvList[5].addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -159,7 +159,7 @@ public class PasswordView extends RelativeLayout {
                         stringBuilder.append(tvList[i].getText().toString().trim());
                     }
                     strPassword = stringBuilder.toString();
-                    onPasswordInputFinish.onFinish(strPassword);    //接口中要实现的方法，完成密码输入完成后的响应逻辑
+                    onEnsureListener.onEnsure(strPassword);
                 }
             }
         });
@@ -172,17 +172,6 @@ public class PasswordView extends RelativeLayout {
         }
     }
 
-    /**
-     * 自定义接口，用于给密码输入完成添加回掉事件
-     */
-    public interface OnPasswordInputFinish {
-        /**
-         * 完成时回调
-         *
-         * @param password 输入的字符串
-         */
-        void onFinish(String password);
-    }
 
     /**
      * 存放控件

@@ -23,7 +23,7 @@ import com.lyni.lockit.repository.Repository;
 import com.lyni.lockit.repository.ThreadPool;
 import com.lyni.lockit.ui.MainActivity;
 import com.lyni.lockit.ui.base.BaseFragment;
-import com.lyni.lockit.ui.dialog.SimpleInputDialog;
+import com.lyni.lockit.ui.customized.dialog.SimpleInputDialog;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 import com.lyni.lockit.utils.clipboard.ClipboardUtil;
 

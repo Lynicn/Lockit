@@ -16,7 +16,7 @@ public class Config {
     public static String password;
     public static boolean useFingerprintEncryption;
 
-    public static void setConfig(SharedPreferences sharedPreferences) {
+    public static void setConfigBySharedPreferences(SharedPreferences sharedPreferences) {
         encrypted = sharedPreferences.getBoolean("encrypt", false);
         usePasswordEncryption = sharedPreferences.getBoolean("usePasswordEncryption", false);
         password = sharedPreferences.getString("password", "");

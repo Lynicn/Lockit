@@ -3,7 +3,6 @@ package com.lyni.lockit.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private OnPressBackListener onPressBackListener;
     private NavController navController;
+    private SharedPreferences sp;
 
     public NavController getNavController() {
         if (navController == null) {
@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         navController = ((NavHostFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView))).getNavController();
         // 伪沉浸式状态栏
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sp = getSharedPreferences("config", MODE_PRIVATE);
         Config.checkFingerprint(this);
-        Config.setConfig(sharedPreferences);
+        Config.setConfigBySharedPreferences(sp);
     }
 
 
@@ -103,5 +103,9 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         LockitApplication.setAuthenticated(false);
+    }
+
+    public SharedPreferences.Editor getEditor() {
+        return sp.edit();
     }
 }

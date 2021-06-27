@@ -49,7 +49,7 @@ public class AuthenticateFragment extends Fragment {
         }
         ((MainActivity) requireActivity()).setOnPressBackListener(Activity::finish);
         if (Config.encrypted && Config.usePasswordEncryption) {
-            binding.inputPassword.setOnFinishInput(password -> {
+            binding.inputPassword.setOnInputFinishListener(password -> {
                 if (password.equals(Config.password)) {
                     Navigation.findNavController(requireView()).popBackStack();
                     LockitApplication.setAuthenticated(true);

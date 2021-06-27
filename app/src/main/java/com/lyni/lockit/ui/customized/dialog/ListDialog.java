@@ -1,4 +1,4 @@
-package com.lyni.lockit.ui.dialog;
+package com.lyni.lockit.ui.customized.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,15 +17,15 @@ import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 
 /**
  * @author Liangyong Ni
- * description 简单输入框
- * @date 2021/6/17
+ * description 包含列表的对话框
+ * @date 2021/6/18
  */
-public class SimpleInputDialog {
+public class ListDialog {
     private final AlertDialog instance;
     private final EditText input;
     private OnEnsureListener onEnsureListener;
 
-    public SimpleInputDialog(@NonNull Context context) {
+    public ListDialog(@NonNull Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_simple_input, null, false);
         input = view.findViewById(R.id.dialog_simple_input_et);
         instance = new AlertDialog.Builder(context)
@@ -41,7 +41,6 @@ public class SimpleInputDialog {
                 .setNegativeButton("取消", null)
                 .create();
     }
-
     public AlertDialog getInstance(@NonNull String title, @NonNull Drawable icon, @NonNull OnEnsureListener onEnsureListener, InputTypeListener inputTypeListener) {
         instance.setTitle(title);
         instance.setIcon(icon);
@@ -74,4 +73,5 @@ public class SimpleInputDialog {
         this.onEnsureListener = onEnsureListener;
         return instance;
     }
+
 }
