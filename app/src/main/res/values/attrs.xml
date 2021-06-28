@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="titleText" format="string" />
+    <attr name="subTitleText" format="string" />
+    <attr name="hasSubTitle" format="boolean" />
     <declare-styleable name="SwitchItem">
         <attr name="icon" format="reference" />
-        <attr name="titleText" format="string" />
-        <attr name="subTitleText" format="string" />
-        <attr name="hasSubTitle" format="boolean" />
+        <attr name="titleText" />
+        <attr name="subTitleText" />
+        <attr name="hasSubTitle" />
         <attr name="enabled" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="TextItem">
+        <attr name="titleText" />
+        <attr name="subTitleText" />
+        <attr name="hasSubTitle" />
+        <attr name="toStart" format="dimension" />
     </declare-styleable>
 </resources>

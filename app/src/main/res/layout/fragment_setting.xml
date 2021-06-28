@@ -14,12 +14,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textStyle="bold"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/settings_header_1" />
+            android:text="@string/settings_header_1"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <com.lyni.lockit.ui.customized.SwitchItem
             android:id="@+id/encrypted"
@@ -40,28 +40,23 @@
             app:subTitleText="使用6位数字作为密码"
             app:titleText="PIN加密" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="start|center_vertical"
-            android:paddingStart="66dp"
+        <com.lyni.lockit.ui.customized.TextItem
             android:id="@+id/password"
-            android:text="@string/setting_btn_password"
-            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            tools:ignore="RtlSymmetry" />
+            app:toStart="48dp"
+            app:hasSubTitle="false"
+            app:titleText="设置密码" />
 
         <com.lyni.lockit.ui.customized.SwitchItem
             android:id="@+id/useFingerprintEncryption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:hasSubTitle="true"
             app:enabled="false"
+            app:hasSubTitle="true"
             app:icon="@drawable/ic_fingerprint_24"
-            app:subTitleText="使用指纹，必须开启PIN加密"
+            app:subTitleText="使用指纹加密程序"
             app:titleText="指纹加密" />
     </LinearLayout>
 

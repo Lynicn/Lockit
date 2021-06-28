@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.authenticate.AuthenticateFragment">
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
@@ -18,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.16" />
 
     <com.lyni.lockit.ui.customized.PasswordView
         android:id="@+id/inputPassword"
@@ -29,7 +30,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0" >
+    </com.lyni.lockit.ui.customized.PasswordView>
 
     <ImageButton
         android:id="@+id/retry"
@@ -37,13 +39,11 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:contentDescription="@string/retry"
-        android:src="@drawable/ic_fingerprint_48"
+        android:src="@drawable/ic_fingerprint_36"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

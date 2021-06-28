@@ -38,4 +38,6 @@
     <string name="settings_header_1">密码与安全</string>
     <string name="icon">icon</string>
     <string name="setting_btn_password">设置密码</string>
+    <string name="save">保存</string>
+    <string name="info">详情</string>
 </resources>

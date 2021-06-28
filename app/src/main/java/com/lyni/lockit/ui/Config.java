@@ -15,12 +15,20 @@ public class Config {
     public static boolean usePasswordEncryption;
     public static String password;
     public static boolean useFingerprintEncryption;
+    private static SharedPreferences sharedPreferences;
 
-    public static void setConfigBySharedPreferences(SharedPreferences sharedPreferences) {
-        encrypted = sharedPreferences.getBoolean("encrypt", false);
-        usePasswordEncryption = sharedPreferences.getBoolean("usePasswordEncryption", false);
-        password = sharedPreferences.getString("password", "");
-        useFingerprintEncryption = sharedPreferences.getBoolean("useFingerprintEncryption", false);
+    public static void setSharedPreferences(SharedPreferences sharedPreferences) {
+        Config.sharedPreferences = sharedPreferences;
+    }
+
+
+    public static void setConfig() {
+        if (sharedPreferences != null) {
+            encrypted = sharedPreferences.getBoolean("encrypt", false);
+            usePasswordEncryption = sharedPreferences.getBoolean("usePasswordEncryption", false);
+            password = sharedPreferences.getString("password", "000000");
+            useFingerprintEncryption = sharedPreferences.getBoolean("useFingerprintEncryption", false);
+        }
     }
 
     /**
@@ -33,6 +41,16 @@ public class Config {
             FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
             //确定是否指纹硬件存在和功能
             supportFingerprint = fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints();
+        } else {
+            supportFingerprint = false;
         }
     }
+
+    public static void saveConfig() {
+        sharedPreferences.edit().putBoolean("encrypt", encrypted)
+                .putBoolean("usePasswordEncryption", usePasswordEncryption)
+                .putString("password", password)
+                .putBoolean("useFingerprintEncryption", useFingerprintEncryption).apply();
+    }
+
 }

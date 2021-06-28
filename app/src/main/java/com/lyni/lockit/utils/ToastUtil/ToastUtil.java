@@ -17,7 +17,9 @@ public class ToastUtil {
     }
 
     public static void showLong(Object message) {
-        Toast.makeText(LockitApplication.getContext(), message.toString(), Toast.LENGTH_LONG).show();
+        Toast toast = Toast.makeText(LockitApplication.getContext(), null, Toast.LENGTH_SHORT);
+        toast.setText(message.toString());
+        toast.show();
     }
 
     public static void showAnywhere(Activity activity, Object message) {

@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private OnPressBackListener onPressBackListener;
     private NavController navController;
-    private SharedPreferences sp;
 
     public NavController getNavController() {
         if (navController == null) {
@@ -49,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
         navController = ((NavHostFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView))).getNavController();
         // 伪沉浸式状态栏
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        sp = getSharedPreferences("config", MODE_PRIVATE);
         Config.checkFingerprint(this);
-        Config.setConfigBySharedPreferences(sp);
+        Config.setSharedPreferences(getSharedPreferences("config", MODE_PRIVATE));
+        Config.setConfig();
     }
 
 
@@ -103,9 +102,5 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         LockitApplication.setAuthenticated(false);
-    }
-
-    public SharedPreferences.Editor getEditor() {
-        return sp.edit();
     }
 }

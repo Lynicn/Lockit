@@ -1,8 +1,6 @@
 package com.lyni.lockit.ui.summary;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import com.lyni.lockit.R;
 import com.lyni.lockit.model.entity.record.Account;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.repository.Repository;
-import com.lyni.lockit.ui.listener.MyClickListener;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 import com.lyni.lockit.utils.clipboard.ClipboardUtil;
 
@@ -78,30 +75,18 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
             holder.alipay.setVisibility(View.VISIBLE);
         }
 
-        holder.item.setOnLongClickListener(v -> {
-            new AlertDialog.Builder(fragment.requireContext())
-                    .setMessage("是否删除该记录")
-                    .setPositiveButton("是", (dialog, which) -> Repository.deleteRecordsByIds(record.getId()))
-                    .setNegativeButton("否", null)
-                    .create().show();
-            return true;
+
+        holder.item.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("record", record);
+            Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment, bundle);
         });
 
-        holder.item.setOnTouchListener(new MyClickListener(new MyClickListener.MyClickCallBack() {
-            @Override
-            public void onDoubleClick() {
-                String message = recordAccount.getPassword() == null ? recordAccount.getUid() : recordAccount.getPassword();
-                ClipboardUtil.copy(fragment.requireContext(), message);
-                ToastUtil.show(message);
-            }
-
-            @Override
-            public void onSingleClick() {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("record", record);
-                Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment, bundle);
-            }
-        }, new Handler(fragment.requireActivity().getMainLooper())) {
+        holder.item.setOnLongClickListener(v -> {
+            String message = recordAccount.getPassword() == null ? recordAccount.getUid() : recordAccount.getPassword();
+            ClipboardUtil.copy(fragment.requireContext(), message);
+            ToastUtil.show(message);
+            return true;
         });
     }
 

@@ -17,10 +17,14 @@ public class BaseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (Config.encrypted && (Config.useFingerprintEncryption || Config.usePasswordEncryption)) {
-            if (!LockitApplication.isAuthenticated()) {
-                Navigation.findNavController(requireView()).navigate(R.id.authenticateFragment);
+        if (Config.encrypted) {
+            if (Config.useFingerprintEncryption || Config.usePasswordEncryption) {
+                if (!LockitApplication.isAuthenticated()) {
+                    Navigation.findNavController(requireView()).navigate(R.id.authenticateFragment);
+                }
             }
+        } else {
+            LockitApplication.setAuthenticated(true);
         }
     }
 }

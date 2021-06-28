@@ -162,7 +162,6 @@ public class AddRecordFragment extends BaseFragment {
                     .show();
             ToastUtil.show("(≧∇≦)ﾉ");
         });
-        binding.addLoginWay.setOnClickListener(v -> ToastUtil.show("该功能暂未实现 ( •̀ ω •́ )✧"));
     }
 
     private void setEditTextFocusChangedListener() {

@@ -9,6 +9,7 @@
     <TextView
         android:id="@+id/textView"
         style="@style/primary_title"
+        android:layout_toStartOf="@id/done"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
@@ -140,11 +141,11 @@
             android:contentDescription="@string/add_record_ib_desc_weibo"
             android:src="@drawable/ic_weibo_28" />
 
-        <ImageButton
-            android:id="@+id/addLoginWay"
-            style="@style/ib_login_way"
-            android:contentDescription="@string/add_record_ib_desc_weibo"
-            android:src="@drawable/ic_add_round_28" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/addLoginWay"-->
+<!--            style="@style/ib_login_way"-->
+<!--            android:contentDescription="@string/add_record_ib_desc_weibo"-->
+<!--            android:src="@drawable/ic_add_round_28" />-->
 
     </LinearLayout>
 
@@ -169,6 +170,18 @@
             android:padding="16dp" />
     </LinearLayout>
 
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:textSize="18sp"-->
+<!--        android:id="@+id/done"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginEnd="18dp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:backgroundTint="@color/gray_light"-->
+<!--        android:text="@string/save" />-->
     <ImageButton
         android:id="@+id/done"
         android:layout_width="wrap_content"
@@ -179,5 +192,5 @@
         android:layout_marginEnd="18dp"
         android:background="@null"
         android:contentDescription="@string/add_record_desc_done"
-        android:src="@drawable/ic_done_32" />
+        android:src="@drawable/ic_save_32" />
 </RelativeLayout>

@@ -1,6 +1,6 @@
 package com.lyni.lockit.ui.settings;
 
-import android.content.SharedPreferences;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.lyni.lockit.R;
 import com.lyni.lockit.databinding.FragmentSettingBinding;
 import com.lyni.lockit.ui.Config;
 import com.lyni.lockit.ui.MainActivity;
@@ -22,9 +21,7 @@ import com.lyni.lockit.ui.customized.dialog.PasswordKeyboardDialog;
  * @date 2021/6/28
  */
 public class SettingFragment extends BaseFragment {
-    private static final String TAG = "SettingFragment";
     private FragmentSettingBinding binding;
-    private SharedPreferences.Editor editor;
 
     @Nullable
     @Override
@@ -38,62 +35,66 @@ public class SettingFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> mActivity.getNavController().popBackStack());
-        editor = ((MainActivity) requireActivity()).getEditor();
+        ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> {
+            if (Config.encrypted) {
+                if (!(Config.usePasswordEncryption || Config.useFingerprintEncryption)) {
+                    new AlertDialog.Builder(requireContext())
+                            .setMessage("您开启了加密但没有使用任何加密方式，请关闭加密或至少开启一种加密方式")
+                            .setPositiveButton("知道了", null)
+                            .create().show();
+                    return;
+                }
+            }
+            mActivity.getNavController().popBackStack();
+        });
         setView();
-        binding.encrypted.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            editor.putBoolean("encrypt", isChecked);
-            Config.encrypted = isChecked;
+        binding.encrypted.setOnClickListener(v -> {
+            Config.encrypted = !Config.encrypted;
             setView();
         });
-        binding.usePasswordEncryption.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            editor.putBoolean("usePasswordEncryption", isChecked);
-            Config.usePasswordEncryption = isChecked;
-            binding.password.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-            binding.useFingerprintEncryption.setItemEnabled(isChecked);
+        binding.usePasswordEncryption.setOnClickListener(v -> {
+            Config.usePasswordEncryption = !Config.usePasswordEncryption;
+            binding.password.setVisibility(Config.usePasswordEncryption ? View.VISIBLE : View.GONE);
         });
-        binding.password.setOnClickListener(v -> new PasswordKeyboardDialog(requireContext(), input -> {
-            Config.password = input;
-            editor.putString("password", input);
-        }));
-        binding.useFingerprintEncryption.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            editor.putBoolean("useFingerprintEncryption", isChecked);
-            Config.useFingerprintEncryption = isChecked;
-            buttonView.setChecked(isChecked);
+        binding.password.setOnTextItemClickListener(v -> new PasswordKeyboardDialog(requireContext(), input -> Config.password = input));
+        binding.useFingerprintEncryption.setOnClickListener(v -> {
+            Config.useFingerprintEncryption = !Config.useFingerprintEncryption;
+            binding.useFingerprintEncryption.setChecked(Config.useFingerprintEncryption);
         });
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        editor.apply();
+        Config.saveConfig();
     }
 
     private void setView() {
         // TODO: 2021/6/28 DataBinding
+        binding.usePasswordEncryption.setChecked(false);
+        binding.usePasswordEncryption.setEnabled(false);
+        binding.password.setVisibility(View.GONE);
+        binding.useFingerprintEncryption.setChecked(false);
+        binding.useFingerprintEncryption.setEnabled(false);
         if (Config.encrypted) {
             // 使用加密
             // 加密按钮置为已选中，PIN加密按钮置为可交互状态
             binding.encrypted.setChecked(true);
-            binding.usePasswordEncryption.setItemEnabled(true);
+            binding.usePasswordEncryption.setEnabled(true);
             if (Config.usePasswordEncryption) {
                 // 启用PIN加密
-                // 按钮置为已选中，指纹加密按钮置为可交互，设置密码按钮置为可见
+                // 按钮置为已选中，设置密码按钮置为可见
                 binding.usePasswordEncryption.setChecked(true);
-                binding.usePasswordEncryption.setItemEnabled(true);
                 binding.password.setVisibility(View.VISIBLE);
+            }
+            if (Config.supportFingerprint) {
+                // 设备支持指纹，指纹可交互打开
+                binding.useFingerprintEncryption.setEnabled(true);
                 if (Config.useFingerprintEncryption) {
                     // 使用指纹加密，指纹加密按钮置为已选中
                     binding.useFingerprintEncryption.setChecked(true);
                 }
-            } else {
-                // 未启用PIN验证
-                // 指纹验证不可用，设置密码按钮不可见
-                binding.useFingerprintEncryption.setItemEnabled(false);
-                binding.password.setVisibility(View.GONE);
             }
-        } else {
-            binding.usePasswordEncryption.setItemEnabled(false);
         }
     }
 }
