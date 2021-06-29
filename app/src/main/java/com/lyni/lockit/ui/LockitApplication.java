@@ -16,6 +16,9 @@ import java.io.File;
 public class LockitApplication extends Application {
     @SuppressLint("StaticFieldLeak")
     private static Context context;
+    /**
+     * 是否已验证
+     */
     private static boolean authenticated;
 
     public static boolean isAuthenticated() {
@@ -37,6 +40,9 @@ public class LockitApplication extends Application {
         initLog();
     }
 
+    /**
+     * 初始化Log
+     */
     private void initLog() {
         File logDir = new File(getFilesDir().getAbsolutePath() + "/log");
         if (!(logDir.exists())) {

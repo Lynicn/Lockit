@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Liangyong Ni
- * description 储存应用信息的实体类
+ * description 储存应用信息的实体类，可序列化
  * @date 2021/6/16
  */
 @Entity(tableName = "icon_table")
@@ -34,12 +34,21 @@ public class AppInfo implements Parcelable {
             return new AppInfo[size];
         }
     };
+    /**
+     * 包名，主键
+     */
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "unique_name")
     private String packageName;
+    /**
+     * 应用名，存储时忽略
+     */
     @Ignore
     private String name;
+    /**
+     * 引用对应的icon
+     */
     @ColumnInfo(name = "icon")
     private Drawable icon;
 

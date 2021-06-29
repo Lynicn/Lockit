@@ -9,7 +9,8 @@ import android.view.View;
  * description 双击事件监听器
  * @date 2021/6/18
  */
-public abstract class MyClickListener implements View.OnTouchListener {
+@Deprecated
+public abstract class AbstractClickListener implements View.OnTouchListener {
 
     /**
      * 双击延迟
@@ -22,7 +23,7 @@ public abstract class MyClickListener implements View.OnTouchListener {
      */
     private int clickCount = 0;
 
-    public MyClickListener(MyClickCallBack myClickCallBack, Handler handler) {
+    public AbstractClickListener(MyClickCallBack myClickCallBack, Handler handler) {
         this.myClickCallBack = myClickCallBack;
         this.handler = handler;
     }
@@ -48,6 +49,9 @@ public abstract class MyClickListener implements View.OnTouchListener {
         return false;
     }
 
+    /**
+     * 点击回调
+     */
     public interface MyClickCallBack {
         /**
          * 双击接口

@@ -5,9 +5,9 @@ package com.lyni.lockit.ui.listener;
  * description 成功回调接口
  * @date 2021/6/21
  */
-public interface OnSucceedListener {
+public interface OnSuccessListener {
     /**
      * 成功回调方法
      */
-    void onSucceed();
+    void onSuccess();
 }

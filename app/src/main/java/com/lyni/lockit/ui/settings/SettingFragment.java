@@ -35,6 +35,7 @@ public class SettingFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        // 重写返回事件，如果开启加密却没有使用加密方式，将被拦截
         ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> {
             if (Config.encrypted) {
                 if (!(Config.usePasswordEncryption || Config.useFingerprintEncryption)) {
@@ -45,8 +46,11 @@ public class SettingFragment extends BaseFragment {
                     return;
                 }
             }
+            // 保存设置
+            Config.saveConfig();
             mActivity.getNavController().popBackStack();
         });
+        // 设置界面
         setView();
         binding.encrypted.setOnClickListener(v -> {
             Config.encrypted = !Config.encrypted;
@@ -61,12 +65,6 @@ public class SettingFragment extends BaseFragment {
             Config.useFingerprintEncryption = !Config.useFingerprintEncryption;
             binding.useFingerprintEncryption.setChecked(Config.useFingerprintEncryption);
         });
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Config.saveConfig();
     }
 
     private void setView() {

@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import com.lyni.lockit.R;
-import com.lyni.lockit.model.database.RecordDatabase;
+import com.lyni.lockit.model.database.AbstractRecordDatabase;
 import com.lyni.lockit.model.entity.record.AppInfo;
 import com.lyni.lockit.model.entity.record.Record;
 import com.lyni.lockit.ui.LockitApplication;
@@ -30,19 +30,34 @@ import java.util.regex.Pattern;
 
 @SuppressLint("UseCompatLoadingForDrawables")
 public class Repository {
-    private static final String TAG = "Repository";
-    private static final RecordDatabase DATABASE = Room.databaseBuilder(LockitApplication.getContext(),
-            RecordDatabase.class, "record.db")
+    /**
+     * 数据库实例，单例 {@link AbstractRecordDatabase}
+     */
+    private static final AbstractRecordDatabase DATABASE = Room.databaseBuilder(LockitApplication.getContext(),
+            AbstractRecordDatabase.class, "record.db")
             .allowMainThreadQueries()
             .build();
+    /**
+     * 已安装的应用信息（不含系统应用）
+     */
     private static final ArrayList<AppInfo> INSTALLED_APPS = new ArrayList<>();
+    /**
+     * 所有应用信息
+     */
     private static final ArrayList<AppInfo> ALL_APPS = new ArrayList<>();
+    /**
+     * 应用图标缓存
+     */
     private static final HashMap<String, Drawable> ICON_CACHE = new HashMap<>();
 
     static {
+        // 没有包名的使用默认图标
         ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_28));
     }
 
+    /**
+     * 扫描所有应用
+     */
     public static void scanApps() {
         // 获取已经安装的所有应用, PackageInfo　系统类，包含应用信息
         PackageManager packageManager = LockitApplication.getContext().getPackageManager();
@@ -65,20 +80,40 @@ public class Repository {
         }
     }
 
+    /**
+     * 清除应用信息
+     */
     public static void cleanAppCache() {
         INSTALLED_APPS.clear();
         ALL_APPS.clear();
     }
 
 
+    /**
+     * 返回已安装应用列表
+     *
+     * @return 已安装应用列表
+     */
     public static ArrayList<AppInfo> getInstalledApps() {
         return INSTALLED_APPS;
     }
 
+    /**
+     * 返回所有应用列表
+     *
+     * @return 所有应用列表
+     */
     public static ArrayList<AppInfo> getAllApps() {
         return ALL_APPS;
     }
 
+    /**
+     * 根据名称查找应用（忽略大小写）
+     *
+     * @param name  应用名
+     * @param isAll 是否包含系统应用
+     * @return 符合名称的所有应用
+     */
     public static ArrayList<AppInfo> findAppsByName(String name, boolean isAll) {
         ArrayList<AppInfo> result = new ArrayList<>();
         ArrayList<AppInfo> list = isAll ? ALL_APPS : INSTALLED_APPS;
@@ -93,10 +128,21 @@ public class Repository {
         return result;
     }
 
+    /**
+     * 返回LiveData形式的所有记录
+     *
+     * @return LiveData形式的所有记录
+     */
     public static LiveData<List<Record>> getAllRecordsLive() {
         return DATABASE.recordDao().getAllRecordsLive();
     }
 
+    /**
+     * 根据包名查询查找icon
+     *
+     * @param packageName 包名
+     * @return icon
+     */
     public static Drawable getIconByPackageName(String packageName) {
         if (packageName == null) {
             return ICON_CACHE.get("null");
@@ -112,29 +158,58 @@ public class Repository {
         return ICON_CACHE.get(packageName);
     }
 
+    /**
+     * 插入应用信息
+     *
+     * @param appInfo 应用信息
+     */
     public static void insert(AppInfo appInfo) {
         DATABASE.iconDao().insert(appInfo);
     }
 
+    /**
+     * 根据id查找记录
+     *
+     * @param id 需要查找的id
+     * @return 查找到的记录的LiveData形式
+     */
     public static LiveData<Record> findRecordLiveById(String id) {
         return DATABASE.recordDao().getRecordLiveById(id);
     }
 
-    public static boolean deleteRecordsByIds(String... ids) {
+    /**
+     * 根据id删除记录
+     *
+     * @param ids 需要删除的id
+     */
+    public static void deleteRecordsByIds(String... ids) {
         DATABASE.recordDao().deleteRecordsByIds(ids);
-        List<Record> records = DATABASE.recordDao().queryRecordByIds(ids);
-        return records == null || records.isEmpty();
     }
 
+    /**
+     * 插入记录
+     *
+     * @param records 需要插入的记录
+     */
     public static void insert(Record... records) {
         DATABASE.recordDao().insertRecords(records);
     }
 
-
+    /**
+     * 更新记录
+     *
+     * @param records 需要更新的记录
+     */
     public static void update(Record... records) {
         DATABASE.recordDao().updateRecords(records);
     }
 
+    /**
+     * 根据id查找记录
+     *
+     * @param id 需要查找的id
+     * @return 查找到的记录
+     */
     public static Record findRecordById(String id) {
         return DATABASE.recordDao().findById(id).get(0);
     }

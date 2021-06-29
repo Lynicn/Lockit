@@ -2,7 +2,6 @@ package com.lyni.lockit.model.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -62,13 +61,6 @@ public interface RecordDao {
     @Insert
     void insertRecords(Record... records);
 
-    /**
-     * 从数据库删除一条或多条数据
-     *
-     * @param records 需要删除的数据
-     */
-    @Delete
-    void deleteRecords(Record... records);
 
     /**
      * 更新一条或多条数据

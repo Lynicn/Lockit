@@ -1,6 +1,5 @@
 package com.lyni.lockit.ui.authenticate;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,8 @@ public class AuthenticateFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (Config.supportFingerprint && Config.useFingerprintEncryption) {
+        // 检查设备是否开启了加密，是否支持指纹，并且开启了指纹解锁
+        if (Config.encrypted && Config.supportFingerprint && Config.useFingerprintEncryption) {
             BiometricPromptUtil.setBiometricPrompt(this, () -> {
                 Navigation.findNavController(requireView()).popBackStack();
                 LockitApplication.setAuthenticated(true);
@@ -47,7 +47,9 @@ public class AuthenticateFragment extends Fragment {
         } else {
             binding.retry.setVisibility(View.INVISIBLE);
         }
-        ((MainActivity) requireActivity()).setOnPressBackListener(Activity::finish);
+        // 按下返回键程序进入后台
+        ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> mActivity.moveTaskToBack(true));
+        // 检查设备是否开启了加密和PIN加密
         if (Config.encrypted && Config.usePasswordEncryption) {
             binding.inputPassword.setOnInputFinishListener(password -> {
                 if (password.equals(Config.password)) {

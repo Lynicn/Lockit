@@ -75,13 +75,14 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
             holder.alipay.setVisibility(View.VISIBLE);
         }
 
-
+        // 点击跳转到详情
         holder.item.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("record", record);
             Navigation.findNavController(fragment.requireView()).navigate(R.id.action_summaryFragment_to_detailsFragment, bundle);
         });
 
+        // 长按复制密码或者id
         holder.item.setOnLongClickListener(v -> {
             String message = recordAccount.getPassword() == null ? recordAccount.getUid() : recordAccount.getPassword();
             ClipboardUtil.copy(fragment.requireContext(), message);

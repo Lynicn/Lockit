@@ -18,7 +18,7 @@ import java.util.UUID;
 
 /**
  * @author Liangyong Ni
- * description 账户实体类
+ * description 账户实体类，可序列化
  * @date 2021/6/13
  */
 @Entity(tableName = "record_table")
@@ -35,16 +35,31 @@ public class Record implements Parcelable {
             return new Record[size];
         }
     };
+    /**
+     * 记录序号，由 {@link UUID} 生成唯一的字符串
+     */
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
     private String id;
+    /**
+     * 应用名
+     */
     @ColumnInfo(name = "name")
     private String name;
+    /**
+     * 包名
+     */
     @ColumnInfo(name = "package_name")
     private String packageName = "default";
+    /**
+     * 网址
+     */
     @ColumnInfo(name = "url")
     private String url;
+    /**
+     * 账户
+     */
     @ColumnInfo(name = "account")
     private Account account;
 
@@ -73,6 +88,11 @@ public class Record implements Parcelable {
     }
 
 
+    /**
+     * 判断该记录是否完整
+     *
+     * @return 记录准备好返回true，否则false
+     */
     public boolean isReady() {
         if (name != null || packageName != null || url != null) {
             return account.isReady();
@@ -134,6 +154,11 @@ public class Record implements Parcelable {
         this.account = account;
     }
 
+    /**
+     * 返回记录的深拷贝
+     *
+     * @return 深拷贝
+     */
     public Record getCopy() {
         Record record = new Record();
         record.setId(id);

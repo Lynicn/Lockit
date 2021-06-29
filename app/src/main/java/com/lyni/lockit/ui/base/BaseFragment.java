@@ -18,8 +18,10 @@ public class BaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (Config.encrypted) {
+            // TODO: 2021/6/30 逻辑有待优化
             if (Config.useFingerprintEncryption || Config.usePasswordEncryption) {
                 if (!LockitApplication.isAuthenticated()) {
+                    // 如果设备开启了加密，并且当前处于未验证，跳转到验证页面
                     Navigation.findNavController(requireView()).navigate(R.id.authenticateFragment);
                 }
             }

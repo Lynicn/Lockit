@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +35,22 @@ import org.jetbrains.annotations.NotNull;
  * @date 2021/6/15
  */
 public class AddRecordFragment extends BaseFragment {
-    private static final String TAG = "AddRecordFragment";
     FragmentAddRecordBinding binding;
+    /**
+     * 记录
+     */
     private Record newRecord;
+    /**
+     * 记录对应的account
+     */
     private Account mainAccount;
+    /**
+     * 记录对应的应用信息
+     */
     private AppInfo appInfo;
+    /**
+     * 对话框，{@link SimpleInputDialog}
+     */
     private SimpleInputDialog simpleInputDialog;
 
     @Override
@@ -60,32 +70,44 @@ public class AddRecordFragment extends BaseFragment {
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // 提前扫描手机App，准备应用选择页面需要的应用信息
         ThreadPool.executeTasks(Repository::scanApps);
 
+        // 取消自动保存
         binding.appName.setSaveEnabled(false);
+        // 设置返回事件
         ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> mActivity.getNavController().popBackStack(R.id.summaryFragment, false));
 
         simpleInputDialog = new SimpleInputDialog(requireContext());
 
+        // 初始化新纪录
         newRecord = new Record();
         mainAccount = new Account();
         newRecord.setAccount(mainAccount);
 
+        // 设置页面初始显示
         setBasicByAppInfo();
+        // 设置EditText焦点改变监听器
         setEditTextFocusChangedListener();
+        // 设置图片按钮点击事件
         setImageButtonClickListener();
+        // 设置选择App按钮监听器，跳转到选择App界面
         binding.selectApp.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean("from", true);
             Navigation.findNavController(requireView()).navigate(R.id.action_addRecordFragment_to_selectAppFragment, bundle);
         });
+        // 设置完成按钮监听器
         binding.done.setOnClickListener(v -> {
+            // 清除焦点
             binding.appName.clearFocus();
             binding.appUrl.clearFocus();
             binding.accountUsername.clearFocus();
             binding.accountUid.clearFocus();
             binding.accountPassword.clearFocus();
             binding.accountNotes.clearFocus();
+
+            // 检查是否记录是否准备好
             if (!mainAccount.isReady()) {
                 ToastUtil.show("账号Id、用户名、登录方式至少填写一项");
                 return;
@@ -94,7 +116,11 @@ public class AddRecordFragment extends BaseFragment {
                 ToastUtil.show("应用名、网址至少填写一项");
                 return;
             }
+
+            // 插入记录
             Repository.insert(newRecord);
+
+            // 插入AppInfo
             if (appInfo != null) {
                 Repository.insert(appInfo);
             }
@@ -102,16 +128,21 @@ public class AddRecordFragment extends BaseFragment {
         });
     }
 
+    /**
+     * 设置页面初始显示
+     */
     private void setBasicByAppInfo() {
         if (appInfo != null) {
             newRecord.setName(appInfo.getName());
             newRecord.setPackageName(appInfo.getPackageName());
             binding.selectApp.setImageDrawable(appInfo.getIcon());
             binding.appName.setText(appInfo.getName());
-            Log.e(TAG, "setBasicByAppInfo: " + appInfo.getName());
         }
     }
 
+    /**
+     * 设置图片按钮点击事件
+     */
     private void setImageButtonClickListener() {
         binding.phone.setOnClickListener(v -> {
                     simpleInputDialog.getInstance("请输入手机号",
@@ -164,6 +195,9 @@ public class AddRecordFragment extends BaseFragment {
         });
     }
 
+    /**
+     * 设置EditText焦点改变监听器，各个组件失去焦点时，保存文本
+     */
     private void setEditTextFocusChangedListener() {
         binding.appName.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
@@ -222,10 +256,17 @@ public class AddRecordFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // 注销订阅者
         EventBus.getDefault().unregister(this);
+        // 清除App信息缓存
         Repository.cleanAppCache();
     }
 
+    /**
+     * 订阅事件处理
+     *
+     * @param message 收到的消息
+     */
     @Subscribe
     public void messageHandler(Message message) {
         if (message.getMessageType() == MessageType.SA_AR_APP_INFO) {

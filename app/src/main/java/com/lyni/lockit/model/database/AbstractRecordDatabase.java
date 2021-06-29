@@ -14,7 +14,7 @@ import com.lyni.lockit.model.entity.record.Record;
  * @date 2021/6/13
  */
 @Database(entities = {Record.class, AppInfo.class}, version = 1, exportSchema = false)
-public abstract class RecordDatabase extends RoomDatabase {
+public abstract class AbstractRecordDatabase extends RoomDatabase {
     /**
      * 得到record_table的Dao对象
      *

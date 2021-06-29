@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
@@ -21,12 +20,21 @@ import com.lyni.lockit.utils.ToastUtil.ToastUtil;
  * @date 2021/6/18
  */
 public class ListDialog {
+    /**
+     * 对话框实例
+     */
     private final AlertDialog instance;
+    /**
+     * 输入框
+     */
     private final EditText input;
+    /**
+     * 确定监听器
+     */
     private OnEnsureListener onEnsureListener;
 
     public ListDialog(@NonNull Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_simple_input, null, false);
+        View view = View.inflate(context, R.layout.dialog_simple_input, null);
         input = view.findViewById(R.id.dialog_simple_input_et);
         instance = new AlertDialog.Builder(context)
                 .setView(view)
@@ -41,6 +49,16 @@ public class ListDialog {
                 .setNegativeButton("取消", null)
                 .create();
     }
+
+    /**
+     * 得到对话框
+     *
+     * @param title             标题
+     * @param icon              图标
+     * @param onEnsureListener  确认回调
+     * @param inputTypeListener 输入类型
+     * @return 对话框
+     */
     public AlertDialog getInstance(@NonNull String title, @NonNull Drawable icon, @NonNull OnEnsureListener onEnsureListener, InputTypeListener inputTypeListener) {
         instance.setTitle(title);
         instance.setIcon(icon);
@@ -53,6 +71,12 @@ public class ListDialog {
         return instance;
     }
 
+    /**
+     * 得到对话框
+     *
+     * @param onEnsureListener 确认回调
+     * @return 对话框
+     */
     public AlertDialog getInstance(@NonNull OnEnsureListener onEnsureListener) {
         instance.setTitle(null);
         instance.setIcon(null);
@@ -62,6 +86,15 @@ public class ListDialog {
         return instance;
     }
 
+    /**
+     * 得到对话框
+     *
+     * @param title             标题
+     * @param iconId            图标Id
+     * @param onEnsureListener  确认回调
+     * @param inputTypeListener 输入类型
+     * @return 对话框
+     */
     public AlertDialog getInstance(@NonNull String title, int iconId, @NonNull OnEnsureListener onEnsureListener, InputTypeListener inputTypeListener) {
         instance.setTitle(title);
         instance.setIcon(iconId);

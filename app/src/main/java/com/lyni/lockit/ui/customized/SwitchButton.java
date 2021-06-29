@@ -8,10 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.widget.CompoundButton;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
 /**
@@ -39,28 +36,16 @@ public class SwitchButton extends AppCompatCheckBox {
     /**
      * 开关指示器按钮圆心 X 坐标的偏移量
      */
-    private float mButtonCenterXOffset;
+    private float mButtonCenterOffsetX;
 
     /**
      * 颜色渐变系数
      */
     private float mColorGradientFactor = 1;
     /**
-     * 状态切换时的动画时长
-     */
-    private long mAnimateDuration = 300L;
-    /**
-     * 开关未选中状态,即关闭状态时的背景颜色
-     */
-    private int mBackgroundColorUnchecked = 0xFFCCCCCC;
-    /**
      * 开关选中状态,即打开状态时的背景颜色
      */
     private int mBackgroundColorChecked = 0xFF6495ED;
-    /**
-     * 开关指示器按钮的颜色
-     */
-    private int mButtonColor = 0xFFFFFFFF;
 
     public SwitchButton(Context context) {
         this(context, null);
@@ -115,6 +100,10 @@ public class SwitchButton extends AppCompatCheckBox {
         // 设置画笔宽度为控件宽度的 1/40,准备绘制控件背景
         mPaint.setStrokeWidth((float) getMeasuredWidth() / 40);
         // 根据是否选中的状态设置画笔颜色
+        /*
+          开关未选中状态,即关闭状态时的背景颜色
+         */
+        int mBackgroundColorUnchecked = 0xFFCCCCCC;
         if (isChecked()) {
             // 选中状态时,背景颜色由未选中状态的背景颜色逐渐过渡到选中状态的背景颜色
             mPaint.setColor(getCurrentColor(mColorGradientFactor, mBackgroundColorUnchecked, mBackgroundColorChecked));
@@ -131,6 +120,10 @@ public class SwitchButton extends AppCompatCheckBox {
         canvas.drawRoundRect(mRectF, getMeasuredHeight(), getMeasuredHeight(), mPaint);
 
         // 设置画笔颜色,准备绘制开关按钮指示器
+        /*
+          开关指示器按钮的颜色
+         */
+        int mButtonColor = 0xFFFFFFFF;
         mPaint.setColor(mButtonColor);
         /*
          * 获取开关按钮指示器的半径
@@ -141,15 +134,11 @@ public class SwitchButton extends AppCompatCheckBox {
         float y;
         // 根据是否选中的状态来决定开关按钮指示器圆心的 X 坐标
         if (isChecked()) {
-//            // 选中状态时开关按钮指示器在右边
-//            x = getMeasuredWidth() - radius - mPaint.getStrokeWidth() - mPaint.getStrokeWidth();
             // 选中状态时开关按钮指示器圆心的 X 坐标从左边逐渐移到右边
-            x = getMeasuredWidth() - radius - mPaint.getStrokeWidth() - mPaint.getStrokeWidth() - mButtonCenterXOffset;
+            x = getMeasuredWidth() - radius - mPaint.getStrokeWidth() - mPaint.getStrokeWidth() - mButtonCenterOffsetX;
         } else {
-//            // 未选中状态时开关按钮指示器在左边
-//            x = radius + mPaint.getStrokeWidth() + mPaint.getStrokeWidth();
             // 未选中状态时开关按钮指示器圆心的 X 坐标从右边逐渐移到左边
-            x = radius + mPaint.getStrokeWidth() + mPaint.getStrokeWidth() + mButtonCenterXOffset;
+            x = radius + mPaint.getStrokeWidth() + mPaint.getStrokeWidth() + mButtonCenterOffsetX;
         }
         // Y 坐标就是控件高度的一半不变
         y = (float) getMeasuredHeight() / 2;
@@ -163,12 +152,16 @@ public class SwitchButton extends AppCompatCheckBox {
         // 计算开关指示器的半径
         float radius = (getMeasuredHeight() - mPaint.getStrokeWidth() * 4) / 2;
         // 计算开关指示器的x坐标的总偏移量
-        float centerXOffset = getMeasuredWidth() - mPaint.getStrokeWidth() - mPaint.getStrokeWidth() - radius
+        float centerOffsetX = getMeasuredWidth() - mPaint.getStrokeWidth() - mPaint.getStrokeWidth() - radius
                 - (mPaint.getStrokeWidth() + mPaint.getStrokeWidth() + radius);
 
         AnimatorSet animatorSet = new AnimatorSet();
         // 偏移量逐渐变化到 0
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "buttonCenterXOffset", centerXOffset, 0);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "buttonCenterOffsetX", centerOffsetX, 0);
+        /*
+          状态切换时的动画时长
+         */
+        long mAnimateDuration = 300L;
         objectAnimator.setDuration(mAnimateDuration);
         objectAnimator.addUpdateListener(animation -> invalidate());
 
@@ -213,27 +206,15 @@ public class SwitchButton extends AppCompatCheckBox {
         return Color.argb(alphaCurrent, redCurrent, greenCurrent, blueCurrent);
     }
 
-    public void setButtonCenterXOffset(float buttonCenterXOffset) {
-        mButtonCenterXOffset = buttonCenterXOffset;
+    public void setButtonCenterOffsetX(float buttonCenterOffsetX) {
+        mButtonCenterOffsetX = buttonCenterOffsetX;
     }
 
     public void setColorGradientFactor(float colorGradientFactor) {
         mColorGradientFactor = colorGradientFactor;
     }
 
-    public void setAnimateDuration(long animateDuration) {
-        mAnimateDuration = animateDuration;
-    }
-
-    public void setBackgroundColorUnchecked(int backgroundColorUnchecked) {
-        mBackgroundColorUnchecked = backgroundColorUnchecked;
-    }
-
     public void setBackgroundColorChecked(int backgroundColorChecked) {
         mBackgroundColorChecked = backgroundColorChecked;
-    }
-
-    public void setButtonColor(int buttonColor) {
-        mButtonColor = buttonColor;
     }
 }

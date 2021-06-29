@@ -12,16 +12,31 @@ import com.lyni.lockit.ui.LockitApplication;
  */
 public class ToastUtil {
 
+    /**
+     * 显示Toast
+     * @param message 需要显示的信息
+     */
     public static void show(Object message) {
-        Toast.makeText(LockitApplication.getContext(), message.toString(), Toast.LENGTH_SHORT).show();
-    }
-
-    public static void showLong(Object message) {
         Toast toast = Toast.makeText(LockitApplication.getContext(), null, Toast.LENGTH_SHORT);
         toast.setText(message.toString());
         toast.show();
     }
 
+    /**
+     * 较长时间显示Toast
+     * @param message 需要显示的信息
+     */
+    public static void showLong(Object message) {
+        Toast toast = Toast.makeText(LockitApplication.getContext(), null, Toast.LENGTH_LONG);
+        toast.setText(message.toString());
+        toast.show();
+    }
+
+    /**
+     * 在主线程中显示Toast
+     * @param activity activity
+     * @param message 信息
+     */
     public static void showAnywhere(Activity activity, Object message) {
         activity.runOnUiThread(() -> Toast.makeText(LockitApplication.getContext(), message.toString(), Toast.LENGTH_SHORT).show());
     }

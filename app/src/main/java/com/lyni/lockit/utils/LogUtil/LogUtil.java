@@ -18,9 +18,18 @@ import java.io.File;
  * @date 2021/6/13
  */
 public class LogUtil {
+    /**
+     * 缓存时间
+     */
     private static final long MAX_TIME = 24 * 60 * 60 * 1000;
+    /**
+     * 日志储存目录
+     */
     private static String logDir = "";
 
+    /**
+     * 初始化方法
+     */
     private static void init() {
         // 指定日志级别，低于该级别的日志将不会被打印，默认为 LogLevel.ALL
         // 允许打印线程信息，默认禁止
@@ -56,6 +65,10 @@ public class LogUtil {
         XLog.init(config, androidPrinter, consolePrinter, filePrinter);
     }
 
+    /**
+     * 设置日志文件目录并初始化
+     * @param file
+     */
     public static void setLogDirAndInit(File file) {
         logDir = file.getAbsolutePath();
         init();

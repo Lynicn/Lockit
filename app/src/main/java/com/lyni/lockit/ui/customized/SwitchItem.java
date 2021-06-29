@@ -21,6 +21,9 @@ import static android.widget.RelativeLayout.CENTER_VERTICAL;
  * @date 2021/6/28
  */
 public class SwitchItem extends MaterialCardView {
+    /**
+     * 开关
+     */
     private final SwitchButton switchButton;
 
     public SwitchItem(Context context, AttributeSet attrs) {

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.Fragment;
 
-import com.lyni.lockit.ui.listener.OnSucceedListener;
+import com.lyni.lockit.ui.listener.OnSuccessListener;
 import com.lyni.lockit.utils.ToastUtil.ToastUtil;
 
 /**
@@ -25,7 +25,12 @@ public class BiometricPromptUtil {
                 .build();
     }
 
-    public static void setBiometricPrompt(Fragment fragment, OnSucceedListener onSucceedListener) {
+    /**
+     * 设置指纹识别配置
+     * @param fragment 调用的fragment
+     * @param onSuccessListener 成功回调
+     */
+    public static void setBiometricPrompt(Fragment fragment, OnSuccessListener onSuccessListener) {
         //需要提供的参数callback
         biometricPrompt = new BiometricPrompt(fragment, command -> new Handler(fragment.requireActivity().getMainLooper()).post(command), new BiometricPrompt.AuthenticationCallback() {
             @Override
@@ -36,7 +41,7 @@ public class BiometricPromptUtil {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                onSucceedListener.onSucceed();
+                onSuccessListener.onSuccess();
             }
 
             @Override
@@ -48,6 +53,9 @@ public class BiometricPromptUtil {
         biometricPrompt.authenticate(PROMPT_INFO);
     }
 
+    /**
+     * 显示指纹识别弹窗
+     */
     public static void show() {
         biometricPrompt.authenticate(PROMPT_INFO);
     }

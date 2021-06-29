@@ -26,6 +26,9 @@ public class SelectAppFragment extends BaseFragment {
 
     private FragmentSelectAppBinding binding;
     private AppsAdapter appsAdapter;
+    /**
+     * 是否是全部应用
+     */
     private boolean isAll;
 
     @Override
@@ -71,6 +74,7 @@ public class SelectAppFragment extends BaseFragment {
             }
         });
 
+        // 设置返回事件
         ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> mActivity.getNavController().popBackStack(from ? R.id.addRecordFragment : R.id.detailsFragment, false));
     }
 }

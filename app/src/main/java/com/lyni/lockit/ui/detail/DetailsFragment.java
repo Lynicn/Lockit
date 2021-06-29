@@ -45,20 +45,31 @@ public class DetailsFragment extends BaseFragment {
      * 可能产生修改后的Record
      */
     private Record record;
+    /**
+     * 当前选中的登录方式
+     */
     private int loginWay = 0;
+    /**
+     * 账户
+     */
     private Account account;
+    /**
+     * 记录Id
+     */
     private String recordId;
+    /**
+     * 输入框
+     */
     private SimpleInputDialog inputDialog;
-    private MainActivity mainActivity;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        mainActivity = (MainActivity) requireActivity();
         inputDialog = new SimpleInputDialog(requireContext());
         String keyString = "record";
         if (getArguments() != null && getArguments().containsKey(keyString)) {
+            // 得到需要显示信息的记录
             currentRecord = getArguments().getParcelable(keyString);
             record = currentRecord.getCopy();
             account = record.getAccount();
@@ -67,7 +78,7 @@ public class DetailsFragment extends BaseFragment {
             loginWay = account.getMinLoginWay();
         } else {
             ToastUtil.show("程序内部错误 (●ˇ∀ˇ●)");
-            mainActivity.getNavController().popBackStack(R.id.summaryFragment, false);
+            ((MainActivity) requireActivity()).getNavController().popBackStack(R.id.summaryFragment, false);
         }
     }
 
@@ -82,35 +93,40 @@ public class DetailsFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // 扫描所有应用
         ThreadPool.executeTasks(Repository::scanApps);
 
+        // 初始化界面
         initView();
+        // 设置复制按钮监听器
         setCopyImageButtonClickListener();
+        // 设置登陆方式点击监听器
         setLoginWaysClickListener();
+        // 设置TextView监听器
         setTextViewClickListener();
 
+        // 设置引用图片
         binding.detailsSelectApp.setImageDrawable(Repository.getIconByPackageName(record.getPackageName()));
+        // 重新选择应用
         binding.detailsSelectApp.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean("from", false);
             Navigation.findNavController(requireView()).navigate(R.id.action_detailsFragment_to_selectAppFragment, bundle);
         });
 
-        binding.detailsDelete.setOnClickListener(v -> {
-            new AlertDialog.Builder(requireContext())
-                    .setMessage("是否删除记录？")
-                    .setPositiveButton("是", (dialog, which) -> {
-                        if (Repository.deleteRecordsByIds(recordId)) {
-                            ToastUtil.show("删除成功(*ꈍ꒙ꈍ*)");
-                            Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false);
-                        } else {
-                            ToastUtil.show("删除失败，请重试꒲⌯ ू(ꆧ⚇̭ꆧ ूˆ)");
-                        }
-                    })
-                    .setNegativeButton("否", null)
-                    .create().show();
-        });
-        mainActivity.setOnPressBackListener(mActivity -> {
+        // 删除
+        binding.detailsDelete.setOnClickListener(v -> new AlertDialog.Builder(requireContext())
+                .setMessage("是否删除记录？")
+                .setPositiveButton("是", (dialog, which) -> {
+                    Repository.deleteRecordsByIds(recordId);
+                    ToastUtil.show("删除成功(*ꈍ꒙ꈍ*)");
+                    Navigation.findNavController(requireView()).popBackStack(R.id.summaryFragment, false);
+                })
+                .setNegativeButton("否", null)
+                .create().show());
+
+        // 重新设置返回事件
+        ((MainActivity) requireActivity()).setOnPressBackListener(mActivity -> {
             if (record.equals(currentRecord)) {
                 mActivity.getNavController().popBackStack();
                 return;
@@ -126,7 +142,9 @@ public class DetailsFragment extends BaseFragment {
         });
     }
 
-
+    /**
+     * 初始化界面
+     */
     private void initView() {
         binding.detailsAppName.setText(record.getName() == null ? "--" : record.getName());
         binding.detailsAppUrl.setText(record.getUrl());
@@ -138,6 +156,9 @@ public class DetailsFragment extends BaseFragment {
         setLoginWayId();
     }
 
+    /**
+     * 设置TextView监听器
+     */
     private void setTextViewClickListener() {
         binding.detailsAppName.setOnClickListener(v -> inputDialog.getInstance("应用名称", R.drawable.ic_android_round_28, input -> {
             record.setName(input);
@@ -170,6 +191,9 @@ public class DetailsFragment extends BaseFragment {
         }).show());
     }
 
+    /**
+     * 设置复制按钮监听器
+     */
     private void setCopyImageButtonClickListener() {
         binding.uidCopy.setOnClickListener(v -> ClipboardUtil.copy(requireContext(), account.getUid()));
         binding.usernameCopy.setOnClickListener(v -> ClipboardUtil.copy(requireContext(), account.getUsername()));
@@ -177,6 +201,9 @@ public class DetailsFragment extends BaseFragment {
         binding.loginWayInfoCopy.setOnClickListener(v -> ClipboardUtil.copy(requireContext(), binding.loginWayInfoText.getText().toString()));
     }
 
+    /**
+     * 设置登陆方式点击监听器
+     */
     private void setLoginWaysClickListener() {
         binding.teleBinding.setOnClickListener(v -> {
             loginWay = 0;
@@ -204,6 +231,9 @@ public class DetailsFragment extends BaseFragment {
         });
     }
 
+    /**
+     * 设置当前登陆方式
+     */
     private void setLoginWayId() {
         switch (loginWay) {
             case 0:
@@ -238,10 +268,16 @@ public class DetailsFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // 注销订阅者
         EventBus.getDefault().unregister(this);
+        // 清除App信息缓存
         Repository.cleanAppCache();
     }
 
+    /**
+     * 事件处理
+     * @param message 事件
+     */
     @Subscribe
     public void messageHandler(Message message) {
         if (message.getMessageType() == MessageType.SA_D_APP_INFO) {

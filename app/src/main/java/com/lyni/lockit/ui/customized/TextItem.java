@@ -16,6 +16,9 @@ import com.lyni.lockit.R;
  * @date 2021/6/28
  */
 public class TextItem extends MaterialCardView {
+    /**
+     * 整个MaterialCardView
+     */
     private final MaterialCardView itemView;
 
     public TextItem(Context context) {
@@ -39,6 +42,11 @@ public class TextItem extends MaterialCardView {
         }
         addView(itemView);
     }
+
+    /**
+     * 设置点击监听
+     * @param onClickListener 监听器
+     */
     public void setOnTextItemClickListener(OnClickListener onClickListener) {
         itemView.setOnClickListener(onClickListener);
     }

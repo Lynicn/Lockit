@@ -6,7 +6,13 @@ package com.lyni.lockit.model.entity.message;
  * @date 2021/6/19
  */
 public class Message {
+    /**
+     * 消息类型 {@link MessageType}
+     */
     private final MessageType messageType;
+    /**
+     * 消息传递的对象
+     */
     private final Object object;
 
     public Message(MessageType messageType, Object object) {

@@ -104,7 +104,9 @@ public class PasswordView extends RelativeLayout {
         addView(view);
     }
 
-
+    /**
+     * 准备数据并设置
+     */
     private void setView() {
         for (int i = 0; i < MAX_LENGTH; i++) {
             if (i < 9) {
@@ -120,9 +122,9 @@ public class PasswordView extends RelativeLayout {
 
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener((parent, view, position, id) -> {
-            if (position < 9 || position == 10) {
+            if (position < NUM_MAX || position == NUM_MAX + 1) {
                 //点击0~9按钮
-                //判断输入位置————要小心数组越界
+                //判断输入位置，注意数组越界
                 if (currentIndex >= -1 && currentIndex < INPUT_NUMBER_MAX_LENGTH - 1) {
                     tvList[++currentIndex].setText(valueList.get(position));
                 }
@@ -137,7 +139,11 @@ public class PasswordView extends RelativeLayout {
         });
     }
 
-
+    /**
+     * 输入完成回调
+     *
+     * @param onEnsureListener 回调
+     */
     public void setOnInputFinishListener(OnEnsureListener onEnsureListener) {
         tvList[5].addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,7 +159,8 @@ public class PasswordView extends RelativeLayout {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 1) {
-                    strPassword = "";     //每次触发都要先将strPassword置空，再重新获取，避免由于输入删除再输入造成混乱
+                    //每次触发都要先将strPassword置空，再重新获取，避免由于输入删除再输入造成混乱
+                    strPassword = "";
                     StringBuilder stringBuilder = new StringBuilder();
                     for (int i = 0; i < INPUT_NUMBER_MAX_LENGTH; i++) {
                         stringBuilder.append(tvList[i].getText().toString().trim());
@@ -165,6 +172,9 @@ public class PasswordView extends RelativeLayout {
         });
     }
 
+    /**
+     * 清空输入
+     */
     public void cleanPassword() {
         currentIndex = -1;
         for (TextView textView : tvList) {

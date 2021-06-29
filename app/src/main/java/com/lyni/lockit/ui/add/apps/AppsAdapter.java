@@ -29,8 +29,17 @@ import java.util.List;
  */
 public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.MyViewHolder> {
 
+    /**
+     * 适配器所在的fragment
+     */
     private final Fragment fragment;
+    /**
+     * from表示当前是添加记录页面（true）还是修改记录页面（false）
+     */
     private final boolean from;
+    /**
+     * 需要显示的应用信息
+     */
     private List<AppInfo> apps;
 
     public AppsAdapter(Fragment fragment, boolean from) {
@@ -54,9 +63,11 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.MyViewHolder> 
         AppInfo appInfo = apps.get(position);
         holder.app.setText(appInfo.getName());
         Drawable icon = appInfo.getIcon();
+        // 调整图标大小
         icon.setBounds(0, 0, 80, 80);
         holder.app.setCompoundDrawablesRelative(icon, null, null, null);
         holder.item.setOnClickListener(v -> {
+            // 向页面调用方传递选择的应用信息
             EventBus.getDefault().post(new Message(from ? MessageType.SA_AR_APP_INFO : MessageType.SA_D_APP_INFO, appInfo));
             Navigation.findNavController(fragment.requireView()).popBackStack();
         });
