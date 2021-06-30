@@ -14,6 +14,7 @@ public class ToastUtil {
 
     /**
      * 显示Toast
+     *
      * @param message 需要显示的信息
      */
     public static void show(Object message) {
@@ -24,6 +25,7 @@ public class ToastUtil {
 
     /**
      * 较长时间显示Toast
+     *
      * @param message 需要显示的信息
      */
     public static void showLong(Object message) {
@@ -34,8 +36,9 @@ public class ToastUtil {
 
     /**
      * 在主线程中显示Toast
+     *
      * @param activity activity
-     * @param message 信息
+     * @param message  信息
      */
     public static void showAnywhere(Activity activity, Object message) {
         activity.runOnUiThread(() -> Toast.makeText(LockitApplication.getContext(), message.toString(), Toast.LENGTH_SHORT).show());

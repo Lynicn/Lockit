@@ -14,6 +14,7 @@ import com.lyni.lockit.model.entity.record.Account;
 public class AccountConverter {
     /**
      * 将Json字符串转化为Account
+     *
      * @param jsonString 输入的json
      * @return 转化后的Account对象
      */
@@ -30,6 +31,7 @@ public class AccountConverter {
 
     /**
      * 将Account对象转化为Json字符串
+     *
      * @param account 需要转化的对象
      * @return 转化后的字符串
      */

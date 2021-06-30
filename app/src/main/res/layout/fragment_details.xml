@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/gray_light"
     android:orientation="vertical"
     tools:context=".ui.detail.DetailsFragment">
 
@@ -49,7 +49,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="4dp"
             android:layout_toStartOf="@id/detailsSelectApp"
-            app:drawableStartCompat="@drawable/ic_android_round_28"
+            app:drawableStartCompat="@drawable/ic_android_round_24"
             tools:text="Lock It" />
 
         <TextView
@@ -61,21 +61,21 @@
             android:layout_marginBottom="0dp"
             android:textSize="18sp"
             android:textStyle="normal"
-            app:drawableStartCompat="@drawable/ic_url_28"
+            app:drawableStartCompat="@drawable/ic_url_24"
             tools:text="http://www.baidu.com" />
 
         <ImageButton
             android:id="@+id/detailsSelectApp"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:scaleType="fitCenter"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="2dp"
             android:background="@null"
             android:contentDescription="@string/select"
-            android:src="@drawable/ic_app_icon_24" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_app_icon_22" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -90,14 +90,15 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="8dp"
             android:layout_toStartOf="@id/uidCopy"
-            app:drawableStartCompat="@drawable/ic_id_26"
-            tools:text="Account Uid" />
+            app:drawableStartCompat="@drawable/ic_id_22"
+            tools:text="12345678HELLO" />
 
         <ImageView
             android:id="@+id/uidCopy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
             android:contentDescription="@string/copy"
             android:padding="8dp"
             android:src="@drawable/ic_copy_24" />
@@ -108,15 +109,16 @@
             android:layout_below="@id/detailsAccountUid"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/usernameCopy"
-            app:drawableStartCompat="@drawable/ic_user_26"
+            app:drawableStartCompat="@drawable/ic_user_22"
             tools:text="Account Username" />
 
         <ImageView
             android:id="@+id/usernameCopy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/uidCopy"
+            android:layout_below="@+id/detailsAccountUid"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
             android:contentDescription="@string/copy"
             android:padding="8dp"
             android:src="@drawable/ic_copy_24" />
@@ -128,15 +130,16 @@
             android:layout_alignParentStart="true"
             android:layout_marginBottom="0dp"
             android:layout_toStartOf="@id/passwordCopy"
-            app:drawableStartCompat="@drawable/ic_password_24"
+            app:drawableStartCompat="@drawable/ic_password_22"
             tools:text="Account Password" />
 
         <ImageView
             android:id="@+id/passwordCopy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/usernameCopy"
+            android:layout_below="@+id/detailsAccountUsername"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
             android:contentDescription="@string/copy"
             android:padding="8dp"
             android:src="@drawable/ic_copy_24" />

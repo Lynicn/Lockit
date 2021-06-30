@@ -27,7 +27,8 @@ public class BiometricPromptUtil {
 
     /**
      * 设置指纹识别配置
-     * @param fragment 调用的fragment
+     *
+     * @param fragment          调用的fragment
      * @param onSuccessListener 成功回调
      */
     public static void setBiometricPrompt(Fragment fragment, OnSuccessListener onSuccessListener) {

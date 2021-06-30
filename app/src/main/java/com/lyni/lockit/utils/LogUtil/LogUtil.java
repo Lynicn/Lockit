@@ -67,7 +67,8 @@ public class LogUtil {
 
     /**
      * 设置日志文件目录并初始化
-     * @param file
+     *
+     * @param file 文件目录
      */
     public static void setLogDirAndInit(File file) {
         logDir = file.getAbsolutePath();

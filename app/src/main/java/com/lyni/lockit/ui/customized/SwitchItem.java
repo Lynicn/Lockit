@@ -10,17 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.card.MaterialCardView;
 import com.lyni.lockit.R;
-
-import static android.widget.RelativeLayout.CENTER_VERTICAL;
 
 /**
  * @author Liangyong Ni
  * description 带选择开关的条目
  * @date 2021/6/28
  */
-public class SwitchItem extends MaterialCardView {
+public class SwitchItem extends RelativeLayout {
     /**
      * 开关
      */
@@ -28,14 +25,14 @@ public class SwitchItem extends MaterialCardView {
 
     public SwitchItem(Context context, AttributeSet attrs) {
         super(context, attrs);
-        MaterialCardView itemView = (MaterialCardView) View.inflate(context, R.layout.switch_item, null);
+        View itemView = View.inflate(context, R.layout.switch_item, null);
         ImageView icon = itemView.findViewById(R.id.si_icon);
         TextView title = itemView.findViewById(R.id.si_title);
         TextView subTitle = itemView.findViewById(R.id.si_sub_title);
         switchButton = itemView.findViewById(R.id.si_switch);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SwitchItem);
         if (typedArray != null) {
-            icon.setImageResource(typedArray.getResourceId(R.styleable.SwitchItem_icon, R.drawable.ic_app_icon_24));
+            icon.setImageResource(typedArray.getResourceId(R.styleable.SwitchItem_icon, R.drawable.ic_app_icon_22));
             title.setText(typedArray.getString(R.styleable.SwitchItem_titleText));
             subTitle.setText(typedArray.getString(R.styleable.SwitchItem_subTitleText));
             switchButton.setEnabled(typedArray.getBoolean(R.styleable.SwitchItem_enabled, true));
@@ -64,7 +61,6 @@ public class SwitchItem extends MaterialCardView {
         switchButton.setEnabled(enabled);
     }
 
-    @Override
     public void setChecked(boolean checked) {
         switchButton.setChecked(checked);
     }

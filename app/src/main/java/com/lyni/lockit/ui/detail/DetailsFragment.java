@@ -160,23 +160,23 @@ public class DetailsFragment extends BaseFragment {
      * 设置TextView监听器
      */
     private void setTextViewClickListener() {
-        binding.detailsAppName.setOnClickListener(v -> inputDialog.getInstance("应用名称", R.drawable.ic_android_round_28, input -> {
+        binding.detailsAppName.setOnClickListener(v -> inputDialog.getInstance("应用名称", R.drawable.ic_android_round_24, input -> {
             record.setName(input);
             ((TextView) v).setText(input);
         }, null).show());
-        binding.detailsAppUrl.setOnClickListener(v -> inputDialog.getInstance("网址", R.drawable.ic_url_28, input -> {
+        binding.detailsAppUrl.setOnClickListener(v -> inputDialog.getInstance("网址", R.drawable.ic_url_24, input -> {
             record.setUrl(input);
             ((TextView) v).setText(input);
         }, null).show());
-        binding.detailsAccountUsername.setOnClickListener(v -> inputDialog.getInstance("用户名", R.drawable.ic_user_26, input -> {
+        binding.detailsAccountUsername.setOnClickListener(v -> inputDialog.getInstance("用户名", R.drawable.ic_user_22, input -> {
             account.setUsername(input);
             ((TextView) v).setText(input);
         }, null).show());
-        binding.detailsAccountUid.setOnClickListener(v -> inputDialog.getInstance("账号ID", R.drawable.ic_id_26, input -> {
+        binding.detailsAccountUid.setOnClickListener(v -> inputDialog.getInstance("账号ID", R.drawable.ic_id_22, input -> {
             account.setUid(input);
             ((TextView) v).setText(input);
         }, null).show());
-        binding.detailsAccountPassword.setOnClickListener(v -> inputDialog.getInstance("密码", R.drawable.ic_password_24, input -> {
+        binding.detailsAccountPassword.setOnClickListener(v -> inputDialog.getInstance("密码", R.drawable.ic_password_22, input -> {
             account.setPassword(input);
             ((TextView) v).setText(input);
         }, null).show());
@@ -276,6 +276,7 @@ public class DetailsFragment extends BaseFragment {
 
     /**
      * 事件处理
+     *
      * @param message 事件
      */
     @Subscribe

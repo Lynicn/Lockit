@@ -1,50 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/gray_light"
-    app:cardElevation="0dp">
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="12dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/ti_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="32dp"
+        android:layout_toStartOf="@id/ti_detail"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        tools:text="标题" />
 
-        <TextView
-            android:id="@+id/ti_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="32dp"
-            android:layout_toStartOf="@id/ti_detail"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            tools:text="标题" />
+    <TextView
+        android:id="@+id/ti_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ti_title"
+        android:layout_alignStart="@+id/ti_title"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:visibility="gone"
+        tools:text="子标题" />
 
-        <TextView
-            android:id="@+id/ti_sub_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ti_title"
-            android:layout_alignStart="@+id/ti_title"
-            android:layout_marginTop="8dp"
-            android:maxLines="1"
-            android:visibility="gone"
-            tools:text="子标题" />
-
-        <ImageView
-            android:id="@+id/ti_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="4dp"
-            android:contentDescription="@string/info"
-            android:src="@drawable/ic_arrow_forward_24" />
-    </RelativeLayout>
-
-</com.google.android.material.card.MaterialCardView>
+    <ImageView
+        android:id="@+id/ti_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/info"
+        android:src="@drawable/ic_arrow_forward_24" />
+</RelativeLayout>

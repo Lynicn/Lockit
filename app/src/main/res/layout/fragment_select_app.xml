@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_light"
     android:orientation="vertical"
     tools:context=".ui.add.apps.SelectAppFragment">
 
@@ -19,20 +20,20 @@
 
     <CheckBox
         android:id="@+id/sysAppsShow"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/bg_et_add"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:text="@string/search_cb_hint" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/appsShow"
-        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:overScrollMode="never" />
 
 </LinearLayout>

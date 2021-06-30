@@ -116,7 +116,7 @@ public class PasswordView extends RelativeLayout {
             } else if (i == NUM_MAX + 1) {
                 valueList.add("0");
             } else {
-                valueList.add("<<");
+                valueList.add("＜");
             }
         }
 

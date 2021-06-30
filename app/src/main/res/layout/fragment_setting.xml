@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_light"
     tools:context=".ui.settings.SettingFragment">
 
     <LinearLayout
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:hasSubTitle="true"
-            app:icon="@drawable/ic_password_24"
+            app:icon="@drawable/ic_password_22"
             app:subTitleText="加密后每次进入程序需要验证"
             app:titleText="是否加密" />
 
@@ -45,9 +46,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:toStart="48dp"
             app:hasSubTitle="false"
-            app:titleText="设置密码" />
+            app:titleText="设置密码"
+            app:toStart="52dp" />
 
         <com.lyni.lockit.ui.customized.SwitchItem
             android:id="@+id/useFingerprintEncryption"

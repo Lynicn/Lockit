@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lock it</string>
+    <string name="summary_desc_add">add a new record</string>
+    <string name="summary_desc_setting">settings</string>
+    <string name="summary_desc_app_icon">app icon</string>
+    <string name="details_tv_title">Info</string>
+    <string name="add_record_tv_title">New</string>
+    <string name="add_record_et_hint_app_name">input app name</string>
+    <string name="add_record_et_hint_app_url">input web url</string>
+    <string name="add_record_ib_desc_qq">login by qq</string>
+    <string name="add_record_ib_desc_wechat">login by wechat</string>
+    <string name="add_record_ib_desc_tele">login by telephone</string>
+    <string name="add_record_ib_desc_weibo">login by weibo</string>
+    <string name="add_record_ib_desc_email">login by email</string>
+    <string name="add_record_ib_desc_alipay">login by alipay</string>
+    <string name="add_record_account_desc_note">Notes</string>
+    <string name="add_record_et_hint_uid">input uid</string>
+    <string name="add_record_et_hint_username">input username</string>
+    <string name="add_record_et_hint_password">input password</string>
+    <string name="add_record_et_hint_notes">notes…</string>
+    <string name="add_record_desc_done">done</string>
+    <string name="dialog_simple_input_hint">input here</string>
+    <string name="search_cb_hint">including system apps</string>
+    <string name="copy">copy</string>
+    <string name="retry">retry</string>
+    <string name="lock">lock</string>
+    <string name="search">search</string>
+    <string name="delete">delete</string>
+    <string name="modify">modify</string>
+    <string name="select">select</string>
+    <string name="settings_header_1">Security</string>
+    <string name="icon">icon</string>
+    <string name="setting_btn_password">set password</string>
+    <string name="save">save</string>
+    <string name="info">Info</string>
+</resources>

@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:contentDescription="@string/lock"
         android:padding="24dp"
-        android:src="@drawable/ic_password_24"
+        android:src="@drawable/ic_password_22"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -30,18 +30,17 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" >
-    </com.lyni.lockit.ui.customized.PasswordView>
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="40dp"
         android:background="@null"
         android:contentDescription="@string/retry"
         android:src="@drawable/ic_fingerprint_36"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

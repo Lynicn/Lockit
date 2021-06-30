@@ -52,7 +52,7 @@ public class Repository {
 
     static {
         // 没有包名的使用默认图标
-        ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_28));
+        ICON_CACHE.put("null", LockitApplication.getContext().getDrawable(R.drawable.ic_android_round_24));
     }
 
     /**

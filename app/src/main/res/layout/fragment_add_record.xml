@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_light"
     android:orientation="vertical"
     tools:context=".ui.add.record.AddRecordFragment">
 
     <TextView
         android:id="@+id/textView"
         style="@style/primary_title"
-        android:layout_toStartOf="@id/done"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
+        android:layout_toStartOf="@id/done"
         android:text="@string/add_record_tv_title" />
 
     <LinearLayout
@@ -36,7 +37,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="0dp"
                 android:layout_toStartOf="@id/selectApp"
-                android:drawableStart="@drawable/ic_android_round_28"
+                android:drawableStart="@drawable/ic_android_round_24"
                 android:hint="@string/add_record_et_hint_app_name"
                 android:importantForAutofill="no"
                 android:inputType="text" />
@@ -52,7 +53,7 @@
                 android:background="@null"
                 android:contentDescription="@string/select"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_app_icon_24" />
+                android:src="@drawable/ic_app_icon_22" />
         </RelativeLayout>
 
 
@@ -60,7 +61,7 @@
             android:id="@+id/appUrl"
             style="@style/et_add_account"
             android:layout_marginBottom="0dp"
-            android:drawableStart="@drawable/ic_url_28"
+            android:drawableStart="@drawable/ic_url_24"
             android:hint="@string/add_record_et_hint_app_url"
             android:importantForAutofill="no"
             android:inputType="textUri" />
@@ -74,7 +75,7 @@
         <EditText
             android:id="@+id/accountUid"
             style="@style/et_add_account"
-            android:drawableStart="@drawable/ic_id_26"
+            android:drawableStart="@drawable/ic_id_22"
             android:hint="@string/add_record_et_hint_uid"
             android:importantForAutofill="no"
             android:inputType="textUri" />
@@ -82,7 +83,7 @@
         <EditText
             android:id="@+id/accountUsername"
             style="@style/et_add_account"
-            android:drawableStart="@drawable/ic_user_26"
+            android:drawableStart="@drawable/ic_user_22"
             android:hint="@string/add_record_et_hint_username"
             android:importantForAutofill="no"
             android:inputType="textUri" />
@@ -91,7 +92,7 @@
             android:id="@+id/accountPassword"
             style="@style/et_add_account"
             android:layout_marginBottom="0dp"
-            android:drawableStart="@drawable/ic_password_24"
+            android:drawableStart="@drawable/ic_password_22"
             android:hint="@string/add_record_et_hint_password"
             android:importantForAutofill="no"
             android:inputType="textPassword" />
@@ -141,11 +142,11 @@
             android:contentDescription="@string/add_record_ib_desc_weibo"
             android:src="@drawable/ic_weibo_28" />
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/addLoginWay"-->
-<!--            style="@style/ib_login_way"-->
-<!--            android:contentDescription="@string/add_record_ib_desc_weibo"-->
-<!--            android:src="@drawable/ic_add_round_28" />-->
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/addLoginWay"-->
+        <!--            style="@style/ib_login_way"-->
+        <!--            android:contentDescription="@string/add_record_ib_desc_weibo"-->
+        <!--            android:src="@drawable/ic_add_round_28" />-->
 
     </LinearLayout>
 
@@ -170,18 +171,18 @@
             android:padding="16dp" />
     </LinearLayout>
 
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:textSize="18sp"-->
-<!--        android:id="@+id/done"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginEnd="18dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:backgroundTint="@color/gray_light"-->
-<!--        android:text="@string/save" />-->
+    <!--    <com.google.android.material.button.MaterialButton-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:textSize="18sp"-->
+    <!--        android:id="@+id/done"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_marginEnd="18dp"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:backgroundTint="@color/gray_light"-->
+    <!--        android:text="@string/save" />-->
     <ImageButton
         android:id="@+id/done"
         android:layout_width="wrap_content"

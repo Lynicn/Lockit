@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 11,
-      "versionName": "1.0.8.210628alpha",
-      "outputFile": "Lockit_release_v1.0.8.210628alpha.apk"
+      "versionCode": 12,
+      "versionName": "1.0.9.210630alpha",
+      "outputFile": "Lockit_release_v1.0.9.210630alpha.apk"
     }
   ]
 }
