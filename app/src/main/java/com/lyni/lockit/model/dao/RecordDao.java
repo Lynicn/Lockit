@@ -24,7 +24,7 @@ public interface RecordDao {
      *
      * @return 返回LiveData形式的结果
      */
-    @Query("select * from record_table")
+    @Query("select * from record_table order by name")
     LiveData<List<Record>> getAllRecordsLive();
 
     /**

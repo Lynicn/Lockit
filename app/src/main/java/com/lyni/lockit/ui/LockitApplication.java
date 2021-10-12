@@ -37,7 +37,7 @@ public class LockitApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = this.getApplicationContext();
-        initLog();
+        // initLog();
     }
 
     /**

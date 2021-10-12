@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.lyni.lockit.R;
@@ -39,6 +40,9 @@ public class SummaryFragment extends BaseFragment {
         SummaryAdapter adapter = new SummaryAdapter(this);
         binding.summaryRecords.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.summaryRecords.setAdapter(adapter);
+        ItemTouchHelper.Callback callback=new RecycleItemTouchHelper(adapter);
+        ItemTouchHelper itemTouchHelper=new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(binding.summaryRecords);
         mViewModel.getRecords().observe(getViewLifecycleOwner(), records -> {
             adapter.setRecords(records);
             adapter.notifyDataSetChanged();

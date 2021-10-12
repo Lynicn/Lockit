@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         Config.initConfig(getSharedPreferences("config", MODE_PRIVATE), this);
         screenLockedBroadcastReceiver = new ScreenLockedBroadcastReceiver(new WeakReference<>(this));
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(screenLockedBroadcastReceiver, intentFilter);
+        registerReceiver(screenLockedBroadcastReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
     }
 
 

@@ -11,6 +11,9 @@ import com.lyni.lockit.ui.LockitApplication;
  * @date 2021/6/13
  */
 public class ToastUtil {
+    private static final String[] EMOTICONS = {
+            "w(ﾟДﾟ)w", "┗|｀O′|┛", "（⊙ｏ⊙）", "(￣┰￣*)", "(ﾉ*･ω･)ﾉ"
+    };
 
     /**
      * 显示Toast

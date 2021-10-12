@@ -15,6 +15,7 @@ import com.lyni.lockit.R;
 import com.lyni.lockit.ui.listener.OnEnsureListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Liangyong Ni
@@ -108,17 +109,12 @@ public class PasswordView extends RelativeLayout {
      * 准备数据并设置
      */
     private void setView() {
-        for (int i = 0; i < MAX_LENGTH; i++) {
-            if (i < 9) {
-                valueList.add(String.valueOf(i + 1));
-            } else if (i == NUM_MAX) {
-                valueList.add("");
-            } else if (i == NUM_MAX + 1) {
-                valueList.add("0");
-            } else {
-                valueList.add("＜");
-            }
+        for (int i = 0; i <= NUM_MAX; i++) {
+            valueList.add(String.valueOf(i));
         }
+        Collections.shuffle(valueList);
+        valueList.add(9, "");
+        valueList.add("＜");
 
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener((parent, view, position, id) -> {

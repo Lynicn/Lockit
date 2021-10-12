@@ -28,7 +28,7 @@ import java.util.List;
  * description Summary界面的适配器
  * @date 2021/6/13
  */
-public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHolder> {
+public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHolder> implements RecycleItemTouchHelper.ItemTouchHelperCallback {
 
 
     private final Fragment fragment;
@@ -94,6 +94,18 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return records == null ? 0 : records.size();
+    }
+
+    @Override
+    public void onItemDelete(int position) {
+        records.remove(position);
+        notifyItemRemoved(position);
+        // TODO: 2021/10/12 数据库删除
+    }
+
+    @Override
+    public void onMove(int fromPosition, int toPosition) {
+        // TODO: 2021/10/12
     }
 
     static final class MyViewHolder extends RecyclerView.ViewHolder {
